@@ -1,4 +1,3 @@
-import 'package:charikati/models/designation.dart';
 import 'package:charikati/models/product.dart';
 import 'package:charikati/pages/home.dart';
 import 'package:flutter/material.dart';

@@ -3,11 +3,11 @@ import 'dart:typed_data';
 
 import 'package:charikati/components/logo.dart';
 import 'package:charikati/models/client.dart';
-import 'package:charikati/models/designation.dart';
+
 import 'package:charikati/models/order.dart';
 import 'package:charikati/models/product.dart';
 import 'package:charikati/models/sell.dart';
-import 'package:charikati/services/database_services.dart';
+
 import 'package:charikati/services/pdf_services/pdf_api.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
@@ -17,7 +17,7 @@ import 'package:flutter/services.dart' show rootBundle;
 // final ttf = Font.ttf(fontData.buffer.asByteData());
 class PdfInvoiceApi {
   static Future<File> generate(Sell sell) async {
-    final DatabaseService db = DatabaseService();
+   
 
     List<Order> orders = await db.getBuyOrders(sell.id!);
     Client client = await db.client(sell.clientId);
@@ -53,7 +53,7 @@ class PdfInvoiceApi {
   }
 
   static Widget ordersList(List<Order> orders)  {
-    final DatabaseService db = DatabaseService();
+   
     final headers = [
       'Designation',
       'Unité',

@@ -3,12 +3,11 @@ import 'package:charikati/controllers/sell_controller.dart';
 import 'package:charikati/models/order.dart';
 import 'package:charikati/models/product.dart';
 import 'package:charikati/models/sell.dart';
-import 'package:charikati/services/database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OrderController extends GetxController {
-  final DatabaseService db = DatabaseService();
+ 
   final SellController sellController = Get.find<SellController>();
   final ProductController productController = Get.find<ProductController>();
   List<Order> orders = [];
@@ -26,12 +25,12 @@ class OrderController extends GetxController {
   void inis() {}
 
   void getSellOrders() async {
-    var or = await db.getBuyOrders(sellController.selectedSell!.id!);
-    if (or != null) {
-      orders = or;
-    } else {
-      orders = [];
-    }
+    // var or = await db.getBuyOrders(sellController.selectedSell!.id!);
+    // if (or != null) {
+    //   orders = or;
+    // } else {
+    //   orders = [];
+    // }
     update();
   }
 
@@ -44,7 +43,7 @@ class OrderController extends GetxController {
         productId: productController.selectedProduct!.id!,
         sellId: sellController.selectedSell!.id!);
     updateSell();
-    await db.insertOrder(order);
+    // await db.insertOrder(order);
     getSellOrders();
     Get.back();
     quantityController.text = "1";
@@ -59,9 +58,9 @@ class OrderController extends GetxController {
       date: sellController.selectedSell!.date,
       total: sellController.selectedSell!.total! + total,
     );
-    await db.updateSell(sell, sellController.selectedSell!.id!);
-    sellController.selectedSell =
-        await db.sell(sellController.selectedSell!.id!);
+    // await db.updateSell(sell, sellController.selectedSell!.id!);
+    // sellController.selectedSell =
+    //     await db.sell(sellController.selectedSell!.id!);
     sellController.getClientBuys();
   }
 

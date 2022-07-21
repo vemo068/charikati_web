@@ -1,12 +1,11 @@
-import 'package:charikati/models/designation.dart';
 
 class Product {
   int? id;
   String name;
 
   int price;
-  int designationId;
-  Product({required this.name, required this.price,required this.designationId,this.id});
+  
+  Product({required this.name, required this.price,this.id});
 
 
    Map<String, dynamic> toMap() {
@@ -14,7 +13,7 @@ class Product {
       'id': id,
       'name': name,
       'price': price,
-      'designationId': designationId,
+      
       
     };
   }
@@ -23,7 +22,7 @@ class Product {
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ,
       price: map['price'],
-      designationId: map['designationId'],
+     
      
     );
   }

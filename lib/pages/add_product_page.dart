@@ -1,5 +1,4 @@
 import 'package:charikati/components/appbar.dart';
-import 'package:charikati/components/choose_designation.dart';
 import 'package:charikati/components/normal_padding.dart';
 import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/styles/colors.dart';
@@ -40,10 +39,7 @@ class AddProductPage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: ChooseDesignation(),
-              ),
+              
               SizedBox(
                 height: 40,
               ),

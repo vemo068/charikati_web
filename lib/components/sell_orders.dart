@@ -40,15 +40,7 @@ class OrderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: FutureBuilder<String>(
-          future: productController.getProductName(order.productId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return SizedBox();
-            } else {
-              return Text(snapshot.data!);
-            }
-          }),
+      
       subtitle: Text("${order.contity}"),
       trailing: Text("${order.total} DA"),
     );

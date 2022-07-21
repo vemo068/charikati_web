@@ -1,10 +1,9 @@
 import 'package:charikati/models/client.dart';
-import 'package:charikati/services/database_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ClientController extends GetxController {
-  final DatabaseService db = DatabaseService();
+ 
   List<Client> clients = [];
   Client? selectedClient;
 
@@ -25,7 +24,7 @@ class ClientController extends GetxController {
     }
     Client client = Client(
         name: name, phone: phoneController.text, email: emailController.text);
-    await db.insertClient(client);
+   // await db.insertClient(client);
     getAllClients();
     Get.back();
     nameController.clear();
@@ -35,7 +34,7 @@ class ClientController extends GetxController {
   }
 
   void getAllClients() async {
-    clients = await db.getClients();
+   // clients = await db.getClients();
     update();
   }
 }
