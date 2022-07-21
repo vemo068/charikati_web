@@ -19,6 +19,7 @@ class ProductController extends GetxController {
   Future<void> saveProduct() async {
    
     Product product = Product(
+      stock: 0,
         name: nameController.text,
         price: int.parse(priceController.text),
         );

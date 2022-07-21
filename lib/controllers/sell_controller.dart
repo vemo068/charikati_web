@@ -20,7 +20,7 @@ class SellController extends GetxController {
 
   void saveSell() async {
     Sell sell = Sell(
-      clientId: clientController.selectedClient!.id!,
+     client: clientController.selectedClient!,
       date: DateTime.now().toString().substring(0, 16),
     );
    // await db.insertSell(sell);

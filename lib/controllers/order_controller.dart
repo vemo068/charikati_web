@@ -1,3 +1,4 @@
+import 'package:charikati/controllers/client_controller.dart';
 import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/controllers/sell_controller.dart';
 import 'package:charikati/models/order.dart';
@@ -7,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OrderController extends GetxController {
- 
   final SellController sellController = Get.find<SellController>();
   final ProductController productController = Get.find<ProductController>();
+  final ClientController clientController = Get.find<ClientController>();
   List<Order> orders = [];
   Order? selectedOrder;
 
@@ -40,13 +41,14 @@ class OrderController extends GetxController {
     Order order = Order(
         total: total,
         contity: int.parse(quantityController.text),
-        productId: productController.selectedProduct!.id!,
-        sellId: sellController.selectedSell!.id!);
+        product: productController.selectedProduct!,
+        sell: sellController.selectedSell!);
     updateSell();
     // await db.insertOrder(order);
     getSellOrders();
     Get.back();
-    quantityController.text = "1";
+    count = 1;
+    quantityController.text = "$count";
     update();
   }
 
@@ -54,7 +56,7 @@ class OrderController extends GetxController {
     int total = productController.selectedProduct!.price *
         int.parse(quantityController.text);
     Sell sell = Sell(
-      clientId: sellController.selectedSell!.clientId,
+      client: clientController.selectedClient!,
       date: sellController.selectedSell!.date,
       total: sellController.selectedSell!.total! + total,
     );

@@ -1,24 +1,29 @@
+import 'package:charikati/models/client.dart';
+
 class Sell {
   int? id;
   int? total;
   String date;
-  int clientId;
-  Sell({required this.date, this.total, required this.clientId, this.id});
-  Map<String, dynamic> toMap() {
+  Client client;
+  Sell({required this.date, this.total, required this.client, this.id});
+  
+
+  //toJson method to convert the object to json format
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'total': total,
       'date': date,
-      'clientId': clientId,
+      'client': client.toJson(),
     };
   }
-
-  factory Sell.fromMap(Map<String, dynamic> map) {
+  //fromJson method to convert the json to object format
+  factory Sell.fromJson(Map<String, dynamic> json) {
     return Sell(
-      id: map['id']?.toInt() ?? 0,
-      date: map['date'],
-      clientId: map['clientId'],
-      total: map['total'] ?? 0,
+      id: json['id']?.toInt() ?? 0,
+      total: json['total']?.toInt() ?? 0,
+      date: json['date'],
+      client: Client.fromJson(json['client']),
     );
   }
 }

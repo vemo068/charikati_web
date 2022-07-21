@@ -6,7 +6,11 @@ class Client {
   Client(
       {required this.name, required this.phone, required this.email, this.id});
 
-  Map<String, dynamic> toMap() {
+
+
+  //toJson method to convert the object to json format
+  
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
@@ -14,12 +18,13 @@ class Client {
       'email': email,
     };
   }
-  factory Client.fromMap(Map<String, dynamic> map) {
+  //fromJson method to convert the json to object format
+  factory Client.fromJson(Map<String, dynamic> json) {
     return Client(
-      id: map['id']?.toInt() ?? 0,
-      name: map['name'] ,
-      phone: map['phone'] ,
-      email: map['email'],
+      id: json['id']?.toInt() ?? 0,
+      name: json['name'],
+      phone: json['phone'],
+      email: json['email'],
     );
   }
 }

@@ -1,29 +1,28 @@
-
 class Product {
   int? id;
   String name;
-
+  int stock;
   int price;
-  
-  Product({required this.name, required this.price,this.id});
 
+  Product({required this.name, required this.price, this.id,required this.stock});
 
-   Map<String, dynamic> toMap() {
+  //toJson method to convert the object to json format
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
+      'stock': stock,
       'price': price,
-      
-      
     };
   }
-   factory Product.fromMap(Map<String, dynamic> map) {
+  //fromJson method to convert the json to object format
+  factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: map['id']?.toInt() ?? 0,
-      name: map['name'] ,
-      price: map['price'],
-     
-     
+      id: json['id']?.toInt() ?? 0,
+      name: json['name'],
+      stock: json['stock']?.toInt() ?? 0,
+      price: json['price']?.toInt() ?? 0,
     );
   }
+ 
 }

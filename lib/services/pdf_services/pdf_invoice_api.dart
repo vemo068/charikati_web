@@ -1,17 +1,16 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:charikati/components/logo.dart';
+
 import 'package:charikati/models/client.dart';
 
 import 'package:charikati/models/order.dart';
-import 'package:charikati/models/product.dart';
+
 import 'package:charikati/models/sell.dart';
 
 import 'package:charikati/services/pdf_services/pdf_api.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
-import 'package:flutter/services.dart' show rootBundle;
+
 
 // final Uint8List fontData = File('assets/NotoNaskhArabic-bold.ttf').readAsBytesSync();
 // final ttf = Font.ttf(fontData.buffer.asByteData());
@@ -19,8 +18,7 @@ class PdfInvoiceApi {
   static Future<File> generate(Sell sell) async {
    
 
-    List<Order> orders = await db.getBuyOrders(sell.id!);
-    Client client = await db.client(sell.clientId);
+    
     final pdf = Document();
 
     pdf.addPage(MultiPage(
@@ -30,9 +28,9 @@ class PdfInvoiceApi {
         Divider(),
         Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(sell.date), clientInfo(client)]),
+            children: [Text(sell.date), clientInfo(sell.client)]),
         SizedBox(height: 3 * PdfPageFormat.cm),
-        ordersList(orders),
+       // ordersList(orders),
         Divider(),
       ],
       //footer: (context) => buildFooter(invoice),
@@ -65,11 +63,11 @@ class PdfInvoiceApi {
       // Product product = await db.product(order.productId);
       // Designation designation = await db.designation(product.designationId);
       return [
-        "${order.productId}",
+        "${order.product.name}",
         // designation.name,
         "U",
         "${order.contity}",
-        "${order.total/order.contity}",
+        "${order.product.price}",
       //  "${product.price}"
        "${order.total}",
       ];
