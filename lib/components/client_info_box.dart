@@ -75,18 +75,18 @@ class ClientInfoBox extends StatelessWidget {
                   minWidth: 40,
                   child: Icon(Icons.call_outlined),
                 ),
-                SizedBox(width: 10),
-                MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  onPressed: () {
-                    sendEmail(clientController.selectedClient!.email);
-                  },
-                  color: Colors.white,
-                  height: 40,
-                  minWidth: 40,
-                  child: Icon(Icons.mail),
-                ),
+                // SizedBox(width: 10),
+                // MaterialButton(
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(30)),
+                //   onPressed: () {
+                //     sendEmail(clientController.selectedClient!.email);
+                //   },
+                //   color: Colors.white,
+                //   height: 40,
+                //   minWidth: 40,
+                //   child: Icon(Icons.mail),
+                // ),
               ],
             )
           ],

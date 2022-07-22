@@ -8,6 +8,9 @@ class FabAjoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       onPressed: ontap,
       label: Text("Ajouter"),
       icon: Icon(Icons.add),

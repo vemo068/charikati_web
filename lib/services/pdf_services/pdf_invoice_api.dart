@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 import 'package:charikati/models/client.dart';
 
 import 'package:charikati/models/order.dart';
@@ -11,14 +10,10 @@ import 'package:charikati/services/pdf_services/pdf_api.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
-
 // final Uint8List fontData = File('assets/NotoNaskhArabic-bold.ttf').readAsBytesSync();
 // final ttf = Font.ttf(fontData.buffer.asByteData());
 class PdfInvoiceApi {
   static Future<File> generate(Sell sell) async {
-   
-
-    
     final pdf = Document();
 
     pdf.addPage(MultiPage(
@@ -30,7 +25,7 @@ class PdfInvoiceApi {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [Text(sell.date), clientInfo(sell.client)]),
         SizedBox(height: 3 * PdfPageFormat.cm),
-       // ordersList(orders),
+        // ordersList(orders),
         Divider(),
       ],
       //footer: (context) => buildFooter(invoice),
@@ -39,27 +34,20 @@ class PdfInvoiceApi {
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget clientInfo(Client client) {
+  static Widget clientInfo(Cliente client) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(client.name),
-        Text(client.email),
+        
         Text(client.phone),
       ],
     );
   }
 
-  static Widget ordersList(List<Order> orders)  {
-   
-    final headers = [
-      'Designation',
-      'Unité',
-          'Quantité',
-      'Prix U.',
-      'Total'
-    ];
-    final data =  orders.map((order)  {
+  static Widget ordersList(List<OrderSell> orders) {
+    final headers = ['Designation', 'Unité', 'Quantité', 'Prix U.', 'Total'];
+    final data = orders.map((order) {
       // Product product = await db.product(order.productId);
       // Designation designation = await db.designation(product.designationId);
       return [
@@ -68,11 +56,11 @@ class PdfInvoiceApi {
         "U",
         "${order.contity}",
         "${order.product.price}",
-      //  "${product.price}"
-       "${order.total}",
+        //  "${product.price}"
+        "${order.total}",
       ];
     }).toList();
-    return  Table.fromTextArray(
+    return Table.fromTextArray(
       headers: headers,
       data: data,
       border: null,

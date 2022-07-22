@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ClientCard extends StatelessWidget {
-  final Client client;
+  final Cliente client;
   ClientCard({Key? key, required this.client}) : super(key: key);
   final ClientController clientController = Get.find<ClientController>();
   @override
@@ -36,8 +36,7 @@ class ClientCard extends StatelessWidget {
           ),
         ),
         title: Text(client.name),
-        subtitle: Text(client.phone),
-        trailing: Text(client.email),
+        subtitle: Text(client.rcn),
       ),
     );
   }

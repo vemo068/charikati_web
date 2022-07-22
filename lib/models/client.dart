@@ -1,30 +1,35 @@
-class Client {
+class Cliente {
   int? id;
   String name;
   String phone;
-  String email;
-  Client(
-      {required this.name, required this.phone, required this.email, this.id});
-
-
+  
+  String nif;
+  String rcn;
+  Cliente(
+      {required this.name, required this.phone, this.id,required this.nif,required this.rcn});
 
   //toJson method to convert the object to json format
-  
+
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'clientId': id,
       'name': name,
       'phone': phone,
-      'email': email,
+      
+      'nif': nif,
+      'rcn': rcn,
     };
   }
+
   //fromJson method to convert the json to object format
-  factory Client.fromJson(Map<String, dynamic> json) {
-    return Client(
-      id: json['id']?.toInt() ?? 0,
+  factory Cliente.fromJson(Map<String, dynamic> json) {
+    return Cliente(
+      id: json['clientId']?.toInt() ?? 0,
       name: json['name'],
       phone: json['phone'],
-      email: json['email'],
+     
+      nif: json['nif'],
+      rcn: json['rcn'],
     );
   }
 }

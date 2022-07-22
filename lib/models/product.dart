@@ -9,7 +9,7 @@ class Product {
   //toJson method to convert the object to json format
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'productId': id,
       'name': name,
       'stock': stock,
       'price': price,
@@ -18,7 +18,7 @@ class Product {
   //fromJson method to convert the json to object format
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id']?.toInt() ?? 0,
+      id: json['productId'],
       name: json['name'],
       stock: json['stock']?.toInt() ?? 0,
       price: json['price']?.toInt() ?? 0,

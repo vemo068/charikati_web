@@ -31,7 +31,7 @@ class SellOrders extends StatelessWidget {
 }
 
 class OrderTile extends StatelessWidget {
-  final Order order;
+  final OrderSell order;
   OrderTile({
     Key? key,
     required this.order,
@@ -40,7 +40,6 @@ class OrderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      
       subtitle: Text("${order.contity}"),
       trailing: Text("${order.total} DA"),
     );

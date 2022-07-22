@@ -28,8 +28,12 @@ class AddClientPage extends StatelessWidget {
                 controller: clientController.phoneController),
             SizedBox(height: 20),
             TxtField(
-                hint: "Client email",
-                controller: clientController.emailController),
+                hint: "Client Nif",
+                controller: clientController.nifController),
+            SizedBox(height: 20),
+             TxtField(
+                hint: "Client Rcn",
+                controller: clientController.rcnController),
             SizedBox(height: 20),
             MaterialButton(
               onPressed: () {

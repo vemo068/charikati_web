@@ -11,8 +11,8 @@ class OrderController extends GetxController {
   final SellController sellController = Get.find<SellController>();
   final ProductController productController = Get.find<ProductController>();
   final ClientController clientController = Get.find<ClientController>();
-  List<Order> orders = [];
-  Order? selectedOrder;
+  List<OrderSell> orders = [];
+  OrderSell? selectedOrder;
 
   int count = 1;
   TextEditingController quantityController = TextEditingController(text: "1");
@@ -38,7 +38,7 @@ class OrderController extends GetxController {
   void saveOrder() async {
     int total = productController.selectedProduct!.price *
         int.parse(quantityController.text);
-    Order order = Order(
+    OrderSell order = OrderSell(
         total: total,
         contity: int.parse(quantityController.text),
         product: productController.selectedProduct!,
