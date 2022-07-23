@@ -3,14 +3,14 @@ import 'package:charikati/models/sell.dart';
 
 class OrderSell {
   int? id;
-  int contity;
+  int quantity;
   int total;
   Product product;
   Sell sell;
   OrderSell(
       {this.id,
       required this.total,
-      required this.contity,
+      required this.quantity,
       required this.product,
       required this.sell});
   //toJson method to convert the object to json format
@@ -18,7 +18,7 @@ class OrderSell {
     return {
       'orderSellId': id,
       'total': total,
-      'contity': contity,
+      'quantity': quantity,
       'product': product.toJson(),
       'sell': sell.toJson(),
     };
@@ -29,7 +29,7 @@ class OrderSell {
     return OrderSell(
       id: json['orderSellId']?.toInt() ?? 0,
       total: json['total']?.toInt() ?? 0,
-      contity: json['contity']?.toInt() ?? 0,
+      quantity: json['quantity']?.toInt() ?? 0,
       product: Product.fromJson(json['product']),
       sell: Sell.fromJson(json['sell']),
     );

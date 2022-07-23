@@ -39,7 +39,6 @@ class PdfInvoiceApi {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(client.name),
-        
         Text(client.phone),
       ],
     );
@@ -54,7 +53,7 @@ class PdfInvoiceApi {
         "${order.product.name}",
         // designation.name,
         "U",
-        "${order.contity}",
+        "${order.quantity}",
         "${order.product.price}",
         //  "${product.price}"
         "${order.total}",

@@ -40,7 +40,8 @@ class OrderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      subtitle: Text("${order.contity}"),
+      title: Text(order.product.name),
+      subtitle: Text("${order.quantity} pcs"),
       trailing: Text("${order.total} DA"),
     );
   }

@@ -9,5 +9,7 @@ const String updateProductUrl=baseUrl+"updateproduct";
 const String deleteProductUrl=baseUrl+"deleteproduct";
 
 const String sellsUrl=baseUrl+"sells";
+const String addSellUrl=baseUrl+"addsell";
 
 const String orderSellsUrl=baseUrl+"ordersells";
+const String addOrderSellUrl=baseUrl+"addordersell";

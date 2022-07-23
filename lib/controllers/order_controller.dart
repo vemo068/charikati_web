@@ -4,10 +4,13 @@ import 'package:charikati/controllers/sell_controller.dart';
 import 'package:charikati/models/order.dart';
 import 'package:charikati/models/product.dart';
 import 'package:charikati/models/sell.dart';
+import 'package:charikati/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OrderController extends GetxController {
+  final HttpService httpService = HttpService();
+
   final SellController sellController = Get.find<SellController>();
   final ProductController productController = Get.find<ProductController>();
   final ClientController clientController = Get.find<ClientController>();
@@ -26,12 +29,12 @@ class OrderController extends GetxController {
   void inis() {}
 
   void getSellOrders() async {
-    // var or = await db.getBuyOrders(sellController.selectedSell!.id!);
-    // if (or != null) {
-    //   orders = or;
-    // } else {
-    //   orders = [];
-    // }
+    var or = await httpService.getSellOrders(sellController.selectedSell!.id!);
+    if (or != null) {
+      orders = or;
+    } else {
+      orders = [];
+    }
     update();
   }
 
@@ -40,30 +43,31 @@ class OrderController extends GetxController {
         int.parse(quantityController.text);
     OrderSell order = OrderSell(
         total: total,
-        contity: int.parse(quantityController.text),
+        quantity: int.parse(quantityController.text),
         product: productController.selectedProduct!,
         sell: sellController.selectedSell!);
     updateSell();
-    // await db.insertOrder(order);
+    await httpService.insertOrderSell(order);
     getSellOrders();
     Get.back();
     count = 1;
     quantityController.text = "$count";
+    productController.selectedProduct = null;
     update();
   }
 
   updateSell() async {
     int total = productController.selectedProduct!.price *
         int.parse(quantityController.text);
-    Sell sell = Sell(
-      client: clientController.selectedClient!,
-      date: sellController.selectedSell!.date,
-      total: sellController.selectedSell!.total! + total,
-    );
-    // await db.updateSell(sell, sellController.selectedSell!.id!);
-    // sellController.selectedSell =
-    //     await db.sell(sellController.selectedSell!.id!);
-    sellController.getClientBuys();
+    sellController.selectedSell!.total =
+        sellController.selectedSell!.total! + total;
+    // Sell sell = Sell(
+    //   client: clientController.selectedClient!,
+    //   date: sellController.selectedSell!.date,
+    //   total: sellController.selectedSell!.total! + total,
+    // );
+    sellController.updateSell();
+    await sellController.getClientBuys();
   }
 
   void increaseCount() {

@@ -22,17 +22,26 @@ class SellPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kcbackground,
       appBar: AppBar(
-        actions: [IconButton(onPressed: sellController.printSell, icon: Icon(Icons.file_copy),),],
-    title: Text("Sell Page"),
-    foregroundColor: kcwhite,
-    backgroundColor: kcmain,
-    elevation: 0,
-  ),
+        actions: [
+          IconButton(
+            onPressed: sellController.printSell,
+            icon: Icon(Icons.file_copy),
+          ),
+        ],
+        title: Text("Sell Page"),
+        foregroundColor: kcwhite,
+        backgroundColor: kcmain,
+        elevation: 0,
+      ),
       body: Column(
         children: [
           SellInfoBox(),
           SizedBox(height: 20),
-          Expanded(child: SellOrders()),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SellOrders(),
+          )),
           AddOrderButton()
         ],
       ),
@@ -67,12 +76,11 @@ class SellInfoBox extends StatelessWidget {
           ),
           SizedBox(height: 20),
           GetBuilder(
-            init: sellController,
-            builder: (_) {
-              return Text("${sellController.selectedSell!.total} DA",
-                  style: mediHeading2Style.copyWith(color: kcaccent));
-            }
-          ),
+              init: sellController,
+              builder: (_) {
+                return Text("${sellController.selectedSell!.total} DA",
+                    style: mediHeading2Style.copyWith(color: kcaccent));
+              }),
         ],
       ),
     );
