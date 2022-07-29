@@ -26,6 +26,11 @@ class OrderDialog extends StatelessWidget {
           ),
           onPressed: () {
             Get.back();
+            productController.selectedProduct = null;
+            orderController.count = 1;
+            orderController.quantityController.text =
+                "${orderController.count}";
+            productController.selectedProduct = null;
           },
         ),
         TextButton(

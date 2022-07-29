@@ -1,4 +1,5 @@
 import 'package:charikati/controllers/order_controller.dart';
+import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 class OrderQuantity extends StatelessWidget {
   OrderQuantity({Key? key}) : super(key: key);
   final OrderController orderController = Get.find<OrderController>();
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder(

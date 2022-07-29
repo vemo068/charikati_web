@@ -1,7 +1,7 @@
 import 'package:charikati/controllers/client_controller.dart';
 import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/controllers/sell_controller.dart';
-import 'package:charikati/models/order.dart';
+import 'package:charikati/models/order_sell.dart';
 import 'package:charikati/models/product.dart';
 import 'package:charikati/models/sell.dart';
 import 'package:charikati/services/http_service.dart';
@@ -46,32 +46,22 @@ class OrderController extends GetxController {
         quantity: int.parse(quantityController.text),
         product: productController.selectedProduct!,
         sell: sellController.selectedSell!);
-    updateSell();
+
     await httpService.insertOrderSell(order);
     getSellOrders();
     Get.back();
     count = 1;
     quantityController.text = "$count";
     productController.selectedProduct = null;
+    sellController.updateSell();
+    await productController.getAllProducts();
     update();
   }
 
-  updateSell() async {
-    int total = productController.selectedProduct!.price *
-        int.parse(quantityController.text);
-    sellController.selectedSell!.total =
-        sellController.selectedSell!.total! + total;
-    // Sell sell = Sell(
-    //   client: clientController.selectedClient!,
-    //   date: sellController.selectedSell!.date,
-    //   total: sellController.selectedSell!.total! + total,
-    // );
-    sellController.updateSell();
-    await sellController.getClientBuys();
-  }
-
   void increaseCount() {
-    count++;
+    if (count < productController.selectedProduct!.stock) {
+      count++;
+    } else {}
     quantityController.text = count.toString();
     update();
   }

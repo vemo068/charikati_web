@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:charikati/models/client.dart';
 
-import 'package:charikati/models/order.dart';
+import 'package:charikati/models/order_sell.dart';
 
 import 'package:charikati/models/sell.dart';
 

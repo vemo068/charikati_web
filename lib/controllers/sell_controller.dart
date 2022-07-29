@@ -14,7 +14,7 @@ class SellController extends GetxController {
   Sell? selectedSell;
   @override
   void onInit() {
-    getClientBuys();
+    getClientSells();
     super.onInit();
   }
 
@@ -25,11 +25,11 @@ class SellController extends GetxController {
       date: DateTime.now().toString().substring(0, 16),
     );
     await httpService.insertSell(sell);
-   await getClientBuys();
+    await getClientSells();
     update();
   }
 
-  Future<void> getClientBuys() async {
+  Future<void> getClientSells() async {
     var b =
         await httpService.getClientSells(clientController.selectedClient!.id!);
     if (b != null) {
@@ -40,11 +40,13 @@ class SellController extends GetxController {
 
     update();
   }
- void updateSell()async{
-  await httpService.insertSell(selectedSell!);
-   await getClientBuys();
+
+  void updateSell() async {
+    selectedSell = await httpService.getSellById(selectedSell!.id!);
+     await getClientSells();
     update();
- }
+  }
+
   void printSell() async {
     final File file = await PdfInvoiceApi.generate(selectedSell!);
     PdfApi.openFile(file);

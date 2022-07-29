@@ -18,6 +18,7 @@ class ClientPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kcbackground,
       floatingActionButton: FabAjoute(
+        text: "Ajouter un vente",
         ontap: () {
           sellController.saveSell();
         },

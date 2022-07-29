@@ -10,16 +10,18 @@ import 'package:get/get.dart';
 
 class ProductsPage extends StatelessWidget {
   ProductsPage({Key? key}) : super(key: key);
-  
+
   final ProductController productController = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kcbackground,
       appBar: charikatiAppBar("Produits"),
-      floatingActionButton: FabAjoute(ontap: () {
-        Get.to(() => AddProductPage());
-      }),
+      floatingActionButton: FabAjoute(
+          text: "Ajouter un produit",
+          ontap: () {
+            Get.to(() => AddProductPage());
+          }),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: GetBuilder(

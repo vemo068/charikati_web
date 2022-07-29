@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class FabAjoute extends StatelessWidget {
   final Function() ontap;
-  const FabAjoute({Key? key, required this.ontap}) : super(key: key);
+  final String text;
+  const FabAjoute({Key? key, required this.ontap,required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class FabAjoute extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       onPressed: ontap,
-      label: Text("Ajouter"),
+      label: Text(text),
       icon: Icon(Icons.add),
       backgroundColor: kcmain,
       foregroundColor: kcwhite,

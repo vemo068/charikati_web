@@ -1,6 +1,6 @@
 import 'package:charikati/controllers/order_controller.dart';
 import 'package:charikati/controllers/product_controller.dart';
-import 'package:charikati/models/order.dart';
+import 'package:charikati/models/order_sell.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

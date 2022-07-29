@@ -19,13 +19,37 @@ class ChooseProduct extends StatelessWidget {
             items: productController.products.map((Product des) {
               return DropdownMenuItem<Product?>(
                 value: des,
-                child: Text(des.name),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(des.name),
+                    Text("${des.stock} left",
+                        style:
+                            TextStyle(color: Colors.grey[600], fontSize: 12)),
+                  ],
+                ),
+                //  ListTile(
+                //   title: Text(des.name),
+                //   subtitle: Text("${des.stock} left"),
+                // ),
               );
             }).toList(),
             onChanged: (Product? value) {
-              productController.selectedProduct = value;
-              print(productController.selectedProduct!.name);
-              productController.update();
+              if (value!.stock > 0) {
+                productController.selectedProduct = value;
+                print(productController.selectedProduct!.name);
+                productController.update();
+              } else {
+                Get.snackbar("Error", "Product is out of stock",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red,
+                    borderRadius: 10,
+                    margin: EdgeInsets.all(10),
+                    borderColor: Colors.red,
+                    borderWidth: 2,
+                    colorText: Colors.white,
+                    icon: Icon(Icons.error, color: Colors.white));
+              }
             },
           ));
         });
