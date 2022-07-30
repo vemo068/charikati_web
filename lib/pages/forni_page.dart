@@ -1,4 +1,5 @@
 import 'package:charikati/components/fab_ajoute.dart';
+import 'package:charikati/components/fornis_list.dart';
 import 'package:charikati/components/normal_padding.dart';
 import 'package:charikati/controllers/forni_controller.dart';
 import 'package:charikati/models/forni.dart';
@@ -41,34 +42,5 @@ class ForniTab extends StatelessWidget {
   }
 }
 
-class ForniList extends StatelessWidget {
-  ForniList({Key? key}) : super(key: key);
-  final ForniController forniController = Get.find<ForniController>();
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder(
-        init: forniController,
-        builder: (_) {
-          return GridView.builder(
-            itemCount: forniController.fornis.length,
-            itemBuilder: (context, index) {
-              return ForniCard(forni: forniController.fornis[index]);
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 1),
-          );
-        });
-  }
-}
 
-class ForniCard extends StatelessWidget {
-  final Forni forni;
-  const ForniCard({Key? key, required this.forni}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: kcsecondary,
-    );
-  }
-}
