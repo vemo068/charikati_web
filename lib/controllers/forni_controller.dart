@@ -28,6 +28,8 @@ class ForniController extends GetxController {
       Forni forni =
           Forni(name: nameController.text, phone: phoneController.text);
       await httpService.insertForni(forni);
+      await getAllFornis();
+      Get.back();
       nameController.text = "";
       phoneController.text = "";
       update();
