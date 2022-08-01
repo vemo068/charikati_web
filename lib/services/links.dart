@@ -17,6 +17,7 @@ const String getSellUrl=baseUrl+"sell";
 
 const String buysUrl=baseUrl+"buys";
 const String addBuyUrl=baseUrl+"addbuy";
+const String getById=baseUrl+"buy";
 
 const String orderSellsUrl=baseUrl+"ordersells";
 const String addOrderSellUrl=baseUrl+"addordersell";

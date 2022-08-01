@@ -47,6 +47,12 @@ class HttpService {
     return Sell.fromJson(jsonResponse);
   }
 
+  Future<Buy> getBuyById(int id) async {
+    Response response = await get(Uri.parse(getById + "?id=+$id"));
+    var jsonResponse = json.decode(response.body);
+    return Buy.fromJson(jsonResponse);
+  }
+
   Future<List<Sell>> getClientSells(int id) async {
     Response response = await get(Uri.parse(sellsUrl + "?id=+$id"));
     var jsonResponse = json.decode(response.body);
@@ -186,4 +192,6 @@ class HttpService {
       return false;
     }
   }
+
+  
 }

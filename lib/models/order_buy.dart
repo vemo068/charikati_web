@@ -5,12 +5,12 @@ import 'package:charikati/models/product.dart';
 class OrderBuy {
   int? id;
   int quantity;
-  int total;
+  int? total;
   Product product;
   Buy buy;
   OrderBuy(
       {this.id,
-      required this.total,
+       this.total,
       required this.quantity,
       required this.product,
       required this.buy});
