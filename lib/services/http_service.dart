@@ -193,5 +193,56 @@ class HttpService {
     }
   }
 
+
+   Future<bool> deleteBuy(int id) async {
+    Response response = await delete(Uri.parse(deleteBuyUrl + "?id=$id"));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+   Future<bool> deleteClient(int id) async {
+    Response response = await delete(Uri.parse(deleteClientUrl + "?id=$id"));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   
+   Future<bool> deleteForni(int id) async {
+    Response response = await delete(Uri.parse(deleteForniUrl + "?id=$id"));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+   Future<bool> deleteOrderBuy(int id) async {
+    Response response = await delete(Uri.parse(deleteOrderBuyUrl + "?id=$id"));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+   Future<bool> deleteOrderSell(int id) async {
+    Response response = await delete(Uri.parse(deleteOrderSellUrl + "?id=$id"));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+   Future<bool> deleteSell(int id) async {
+    Response response = await delete(Uri.parse(deleteSellUrl + "?id=$id"));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
