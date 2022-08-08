@@ -44,5 +44,10 @@ class BuyController extends GetxController {
      await getForniBuys();
     update();
   }
+  deleteBuy() async {
+    await httpService.deleteBuy(selectedBuy!.id!);
+    await getForniBuys();
+    update();
+  }
 
 }

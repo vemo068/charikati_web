@@ -51,4 +51,9 @@ class SellController extends GetxController {
     final File file = await PdfInvoiceApi.generate(selectedSell!);
     PdfApi.openFile(file);
   }
+  deleteSell() async {
+    await httpService.deleteSell(selectedSell!.id!);
+    await getClientSells();
+    update();
+  }
 }

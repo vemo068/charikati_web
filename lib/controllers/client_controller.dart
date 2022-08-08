@@ -40,4 +40,9 @@ class ClientController extends GetxController {
      clients = await httpService.getClients();
     update();
   }
+  deleteClient() async {
+    await httpService.deleteClient(selectedClient!.id!);
+    getAllClients();
+    update();
+  }
 }

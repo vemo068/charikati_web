@@ -47,4 +47,9 @@ class OrderBuyController extends GetxController {
     await buyController.getForniBuys();
     update();
   }
+  deleteOrderBuy() async {
+    await httpService.deleteOrderBuy(selectedOrderBuy!.id!);
+    getOrderBuys();
+    update();
+  }
 }

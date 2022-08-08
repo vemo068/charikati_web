@@ -74,4 +74,9 @@ class OrderController extends GetxController {
     quantityController.text = count.toString();
     update();
   }
+  deleteOrder() async {
+    await httpService.deleteOrderSell(selectedOrder!.id!);
+     getSellOrders();
+    update();
+  }
 }

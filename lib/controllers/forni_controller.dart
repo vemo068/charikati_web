@@ -40,4 +40,9 @@ class ForniController extends GetxController {
   //   update();
   // }
 
+deleteForni() async {
+    await httpService.deleteForni(selectedForni!.id!);
+    await getAllFornis();
+    update();
+  }
 }
