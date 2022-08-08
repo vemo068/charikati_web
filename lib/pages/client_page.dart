@@ -23,7 +23,14 @@ class ClientPage extends StatelessWidget {
           sellController.saveSell();
         },
       ),
-      appBar: charikatiAppBar("Client Info"),
+      appBar: charikatiAppBar("Client Info", actions: [
+        IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            clientController.deleteClient();
+          },
+        ),
+      ]),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

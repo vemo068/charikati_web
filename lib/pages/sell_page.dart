@@ -16,7 +16,7 @@ class SellPage extends StatelessWidget {
   final ClientController clientController = Get.find<ClientController>();
   final SellController sellController = Get.find<SellController>();
   final ProductController productController = Get.put(ProductController());
-  final OrderController orderController = Get.put(OrderController());
+  final OrderSellController orderController = Get.put(OrderSellController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChooseProduct extends StatelessWidget {
-  ChooseProduct({Key? key}) : super(key: key);
+  final bool isSell;
+  ChooseProduct({Key? key, required this.isSell}) : super(key: key);
   final ProductController productController = Get.find<ProductController>();
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class ChooseProduct extends StatelessWidget {
               );
             }).toList(),
             onChanged: (Product? value) {
-              if (value!.stock > 0) {
+              if (value!.stock > 0 || !isSell) {
                 productController.selectedProduct = value;
                 print(productController.selectedProduct!.name);
                 productController.update();

@@ -1,16 +1,13 @@
 import 'package:charikati/controllers/buy_controller.dart';
-import 'package:charikati/controllers/sell_controller.dart';
 import 'package:charikati/models/buy.dart';
-import 'package:charikati/models/sell.dart';
 import 'package:charikati/pages/buy_page.dart';
-import 'package:charikati/pages/sell_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BuyTile extends StatelessWidget {
   final Buy buy;
   BuyTile({Key? key, required this.buy}) : super(key: key);
-  final BuyController sellsController = Get.find<BuyController>();
+  final BuyController buyController = Get.find<BuyController>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,7 +17,7 @@ class BuyTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         onTap: (() {
-          // sellsController.selectedSell = sell;
+          buyController.selectedBuy = buy;
           Get.to(() => BuyPage());
         }),
         tileColor: Colors.blue.withOpacity(0.2),

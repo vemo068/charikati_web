@@ -2,7 +2,7 @@ const String baseUrl = "http://localhost:8080/";
 
 const String clientsUrl=baseUrl+"clients";
 const String addClientUrl=baseUrl+"addClient";
-const String deleteClientUrl=baseUrl+"deleteClient";
+const String deleteClientUrl=baseUrl+"deleteclient";
 
 const String fornisUrl=baseUrl+"fornis";
 const String addForniUrl=baseUrl+"addforni";

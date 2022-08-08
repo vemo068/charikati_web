@@ -36,6 +36,8 @@ class OrderBuyController extends GetxController {
       product: productController.selectedProduct!,
       quantity: int.parse(quantityController.text),
       buy: buyController.selectedBuy!,
+      total: productController.selectedProduct!.price *
+          int.parse(quantityController.text),
     );
 
     await httpService.insertOrderBuy(orderBuy);
@@ -45,11 +47,30 @@ class OrderBuyController extends GetxController {
     quantityController.text = "$count";
     buyController.updateBuy();
     await buyController.getForniBuys();
+    productController.selectedProduct = null;
+    await productController.getAllProducts();
     update();
   }
+
   deleteOrderBuy() async {
     await httpService.deleteOrderBuy(selectedOrderBuy!.id!);
     getOrderBuys();
+    update();
+  }
+
+  void increaseCount() {
+    count++;
+
+    quantityController.text = count.toString();
+    update();
+  }
+
+  void decreaseCount() {
+    if (count > 1) {
+      count--;
+    } else {}
+
+    quantityController.text = count.toString();
     update();
   }
 }

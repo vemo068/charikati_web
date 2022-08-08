@@ -50,4 +50,7 @@ class BuyController extends GetxController {
     update();
   }
 
+
+  void printBuy() {
+  }
 }

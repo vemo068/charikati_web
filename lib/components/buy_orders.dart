@@ -1,28 +1,31 @@
-import 'package:charikati/controllers/order_controller.dart';
+import 'package:charikati/controllers/buy_controller.dart';
+import 'package:charikati/controllers/order_buy_controller.dart';
 import 'package:charikati/controllers/product_controller.dart';
-import 'package:charikati/controllers/sell_controller.dart';
-import 'package:charikati/models/order_sell.dart';
+import 'package:charikati/models/order_buy.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-class SellOrders extends StatelessWidget {
-  SellOrders({Key? key}) : super(key: key);
-  final OrderSellController orderController = Get.find<OrderSellController>();
+
+
+class BuyOrders extends StatelessWidget {
+  BuyOrders({Key? key}) : super(key: key);
+final OrderBuyController orderController = Get.find<OrderBuyController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
         init: orderController,
         builder: (_) {
-          if (orderController.orders.isEmpty) {
+          if (orderController.orderBuys.isEmpty) {
             return Center(
               child: Text("No Orders"),
             );
           } else {
             return ListView.builder(
-              itemCount: orderController.orders.length,
+              itemCount: orderController.orderBuys.length,
               itemBuilder: (context, index) {
-                return OrderTile(
-                  order: orderController.orders[index],
+                return OrderBuyTile(
+                  order: orderController.orderBuys[index],
                 );
               },
             );
@@ -31,15 +34,15 @@ class SellOrders extends StatelessWidget {
   }
 }
 
-class OrderTile extends StatelessWidget {
-  final OrderSell order;
-  OrderTile({
+class OrderBuyTile extends StatelessWidget {
+  final OrderBuy order;
+  OrderBuyTile({
     Key? key,
     required this.order,
   }) : super(key: key);
   final ProductController productController = Get.find<ProductController>();
-  final OrderSellController orderController = Get.find<OrderSellController>();
-  final SellController sellController = Get.find<SellController>();
+ final OrderBuyController orderController = Get.find<OrderBuyController>();
+ final BuyController buyController = Get.find<BuyController>();
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -54,11 +57,11 @@ class OrderTile extends StatelessWidget {
                   TextButton(
                     child: Text("Yes"),
                     onPressed: () {
-                      orderController.selectedOrder = order;
-                      orderController.deleteOrder();
+                      orderController.selectedOrderBuy = order;
+                      orderController.deleteOrderBuy();
 
                       Get.back();
-                      sellController.updateSell();
+                      buyController.updateBuy();
                     },
                   ),
                   TextButton(

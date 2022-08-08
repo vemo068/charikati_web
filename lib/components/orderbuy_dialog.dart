@@ -1,28 +1,22 @@
 import 'package:charikati/components/choose_product.dart';
 import 'package:charikati/components/order_quantity.dart';
-import 'package:charikati/controllers/order_controller.dart';
+import 'package:charikati/controllers/order_buy_controller.dart';
 import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OrderDialog extends StatelessWidget {
-  OrderDialog({Key? key}) : super(key: key);
+class OrderBuyDialog extends StatelessWidget {
+  OrderBuyDialog({Key? key}) : super(key: key);
   final ProductController productController = Get.find<ProductController>();
-  final OrderSellController orderController = Get.find<OrderSellController>();
+  final OrderBuyController orderController = Get.find<OrderBuyController>();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Order Details"),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          ChooseProduct(
-            isSell: true,
-          ),
-          SizedBox(height: 20),
-          OrderQuantity()
-        ],
+        children: [ChooseProduct(isSell: false,), SizedBox(height: 20), OrderBuyQuantity()],
       ),
       actions: [
         TextButton(
@@ -45,7 +39,7 @@ class OrderDialog extends StatelessWidget {
             style: TextStyle(color: kcmain),
           ),
           onPressed: () {
-            orderController.saveOrder();
+            orderController.saveOrderBuy();
           },
         ),
       ],

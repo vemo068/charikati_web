@@ -8,7 +8,7 @@ import 'package:charikati/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OrderController extends GetxController {
+class OrderSellController extends GetxController {
   final HttpService httpService = HttpService();
 
   final SellController sellController = Get.find<SellController>();
@@ -74,9 +74,11 @@ class OrderController extends GetxController {
     quantityController.text = count.toString();
     update();
   }
+
   deleteOrder() async {
     await httpService.deleteOrderSell(selectedOrder!.id!);
-     getSellOrders();
+    sellController.updateSell();
+    getSellOrders();
     update();
   }
 }
