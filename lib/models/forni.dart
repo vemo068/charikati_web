@@ -22,7 +22,7 @@ class Forni {
   //fromJson method to convert the json to object format
   factory Forni.fromJson(Map<String, dynamic> json) {
     return Forni(
-      id: json['clientId']?.toInt() ?? 0,
+      id: json['forniId']?.toInt() ?? 0,
       name: json['name'],
       phone: json['phone'],
      

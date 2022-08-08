@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:charikati/models/buy.dart';
 import 'package:charikati/models/client.dart';
 
 import 'package:charikati/models/order_sell.dart';
@@ -13,7 +14,7 @@ import 'package:pdf/widgets.dart';
 // final Uint8List fontData = File('assets/NotoNaskhArabic-bold.ttf').readAsBytesSync();
 // final ttf = Font.ttf(fontData.buffer.asByteData());
 class PdfInvoiceApi {
-  static Future<File> generate(Sell sell) async {
+  static Future<File> generateSell(Sell sell) async {
     final pdf = Document();
 
     pdf.addPage(MultiPage(
@@ -78,26 +79,58 @@ class PdfInvoiceApi {
   }
 
   static Widget header() {
-    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text("R.C.  N°: 39/00-21B0544700"),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text("NIF: 002139054470024", style: pdfStyle),
-          Text("غمرة الوسطى – قمار – الوادي",
-              style: pdfStyle, textDirection: TextDirection.rtl),
-        ]),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text("Tel : 05.42.28.98.05", style: pdfStyle),
-          Text("استيراد التجهيزات والمعدات المرتبطة بصناعة المعادن",
-              style: pdfStyle),
-        ]),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text("Email : maaden.sahra@gmail.com", style: pdfStyle),
-          Text("رأسمال: 15,000,000.00 دج", style: pdfStyle),
-        ]),
-      ])
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      Text(
+        "SARL MAADEN SAHRA",
+        style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 5,
+            wordSpacing: 2),
+      ),
+      SizedBox(height: 0.5 * PdfPageFormat.cm),
+      Text(
+        "GHAMRA CENTRE GUEMAR W.D'EL-OUED",
+        style: TextStyle(fontSize: 16, color: PdfColors.black),
+      ),
+      SizedBox(height: 0.3 * PdfPageFormat.cm),
+      Text(
+        "IMPORTATION DES EQUIPEMENTS & MATERIELS AU DOMAINE DE L'INDUSTRIE DES METAUX",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: PdfColors.black,
+        ),
+      ),
+      SizedBox(height: 1 * PdfPageFormat.cm),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              "SARL AU CAPITAL 15.000.000 D.A .",
+            ),
+            Text(
+              "N° R.C , 21 B 0544700-00/39",
+            ),
+            Text(
+              "N° I.F , 00213954470024",
+            ),
+            Text("N° I.S , 002139060004559"),
+            Text("N° A.I , 39060016530"),
+            Text("N° TELEPHONE , 06 96 00 67 11"),
+            Text("N° TELEPHONE , 05 42 28 98 05"),
+            Text("E-MAIL , maaden.sahra@gmail.com"),
+          ]),
+          Text(
+            "Fax: +212 (0) 5 22 22 22 22",
+            style: TextStyle(fontSize: 16, color: PdfColors.black),
+          ),
+        ],
+      ),
     ]);
   }
+
+  static generateBuy(Buy buy) {}
 }
 
 TextStyle pdfStyle = const TextStyle(color: PdfColors.blue);

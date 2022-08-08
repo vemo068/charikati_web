@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:charikati/controllers/forni_controller.dart';
 import 'package:charikati/models/buy.dart';
 import 'package:charikati/services/http_service.dart';
+import 'package:charikati/services/pdf_services/pdf_api.dart';
+import 'package:charikati/services/pdf_services/pdf_invoice_api.dart';
 import 'package:get/get.dart';
 
 class BuyController extends GetxController {
@@ -10,12 +14,12 @@ class BuyController extends GetxController {
   List<Buy> buys = [];
   Buy? selectedBuy;
 
-
   @override
-  void onInit() async{
+  void onInit() async {
     await getForniBuys();
     super.onInit();
   }
+
   void saveBuy() async {
     Buy buy = Buy(
       total: 0,
@@ -27,8 +31,7 @@ class BuyController extends GetxController {
     update();
   }
 
-  getForniBuys() async{
-
+  getForniBuys() async {
     var b = await httpService.getForniBuys(forniController.selectedForni!.id!);
     if (b != null) {
       buys = b;
@@ -41,16 +44,24 @@ class BuyController extends GetxController {
 
   void updateBuy() async {
     selectedBuy = await httpService.getBuyById(selectedBuy!.id!);
-     await getForniBuys();
+    await getForniBuys();
     update();
   }
+
   deleteBuy() async {
     await httpService.deleteBuy(selectedBuy!.id!);
     await getForniBuys();
     update();
   }
 
+  void printBuy() async {
+    final File file = await PdfInvoiceApi.generateBuy(selectedBuy!);
+    PdfApi.openFile(file);
+  }
 
-  void printBuy() {
+  @override
+  void onClose() {
+    selectedBuy = null;
+    super.onClose();
   }
 }

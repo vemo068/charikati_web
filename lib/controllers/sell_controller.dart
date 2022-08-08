@@ -43,14 +43,15 @@ class SellController extends GetxController {
 
   void updateSell() async {
     selectedSell = await httpService.getSellById(selectedSell!.id!);
-     await getClientSells();
+    await getClientSells();
     update();
   }
 
   void printSell() async {
-    final File file = await PdfInvoiceApi.generate(selectedSell!);
+    final File file = await PdfInvoiceApi.generateSell(selectedSell!);
     PdfApi.openFile(file);
   }
+
   deleteSell() async {
     await httpService.deleteSell(selectedSell!.id!);
     await getClientSells();

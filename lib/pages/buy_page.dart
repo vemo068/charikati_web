@@ -27,7 +27,7 @@ class BuyPage extends StatelessWidget {
             icon: Icon(Icons.file_copy),
           ),
         ],
-        title: Text("Sell Page"),
+        title: Text("Buy Page"),
         foregroundColor: kcwhite,
         backgroundColor: kcmain,
         elevation: 0,
@@ -40,8 +40,8 @@ class BuyPage extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child:
-            // SellOrders(),
-            BuyOrders(),
+                // SellOrders(),
+                BuyOrders(),
           )),
           AddOrderBuyButton()
         ],
@@ -49,8 +49,6 @@ class BuyPage extends StatelessWidget {
     );
   }
 }
-
-
 
 class BuyInfoBox extends StatelessWidget {
   BuyInfoBox({Key? key}) : super(key: key);
