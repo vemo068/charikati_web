@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:charikati/models/buy.dart';
 import 'package:charikati/models/client.dart';
+import 'package:charikati/styles/styles.dart';
+import 'package:intl/intl.dart';
 
 import 'package:charikati/models/order_sell.dart';
 
@@ -14,20 +16,29 @@ import 'package:pdf/widgets.dart';
 // final Uint8List fontData = File('assets/NotoNaskhArabic-bold.ttf').readAsBytesSync();
 // final ttf = Font.ttf(fontData.buffer.asByteData());
 class PdfInvoiceApi {
-  static Future<File> generateSell(Sell sell) async {
+  static Future<File> generateSell(
+      Sell sell, List<OrderSell> orderSells) async {
     final pdf = Document();
 
     pdf.addPage(MultiPage(
       theme: ThemeData.withFont(),
       build: (context) => [
-        header(),
-        Divider(),
+        header(sell),
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text(sell.date), clientInfo(sell.client)]),
-        SizedBox(height: 3 * PdfPageFormat.cm),
-        // ordersList(orders),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(),
+            clientInfo(sell.client),
+          ],
+        ),
+        SizedBox(height: 0.7 * PdfPageFormat.cm),
         Divider(),
+        ordersList(orderSells),
+        Divider(),
+        Text(formatCurrency.format(sell.total!)),
+        Text("ARRETE LA PRESENTE FACTURE A LA SOMME DE . " +
+            converter.convertInt(sell.total!).toUpperCase() +
+            " D.A"),
       ],
       //footer: (context) => buildFooter(invoice),
     ));
@@ -39,8 +50,10 @@ class PdfInvoiceApi {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(client.name),
-        Text(client.phone),
+        Text("DOIT , ${client.name}"),
+        SizedBox(),
+        Text("N° I.F , ${client.nif}"),
+        Text("N° R.C , ${client.rcn}"),
       ],
     );
   }
@@ -48,16 +61,14 @@ class PdfInvoiceApi {
   static Widget ordersList(List<OrderSell> orders) {
     final headers = ['Designation', 'Unité', 'Quantité', 'Prix U.', 'Total'];
     final data = orders.map((order) {
-      // Product product = await db.product(order.productId);
-      // Designation designation = await db.designation(product.designationId);
       return [
         "${order.product.name}",
         // designation.name,
         "U",
         "${order.quantity}",
-        "${order.product.price}",
+        "${formatCurrency.format(order.product.price)}",
         //  "${product.price}"
-        "${order.total}",
+        "${formatCurrency.format(order.total)}",
       ];
     }).toList();
     return Table.fromTextArray(
@@ -78,7 +89,7 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget header() {
+  static Widget header(Sell sell) {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Text(
         "SARL MAADEN SAHRA",
@@ -88,7 +99,7 @@ class PdfInvoiceApi {
             letterSpacing: 5,
             wordSpacing: 2),
       ),
-      SizedBox(height: 0.5 * PdfPageFormat.cm),
+      SizedBox(height: 0.4 * PdfPageFormat.cm),
       Text(
         "GHAMRA CENTRE GUEMAR W.D'EL-OUED",
         style: TextStyle(fontSize: 16, color: PdfColors.black),
@@ -103,6 +114,7 @@ class PdfInvoiceApi {
       ),
       SizedBox(height: 1 * PdfPageFormat.cm),
       Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -121,10 +133,11 @@ class PdfInvoiceApi {
             Text("N° TELEPHONE , 05 42 28 98 05"),
             Text("E-MAIL , maaden.sahra@gmail.com"),
           ]),
-          Text(
-            "Fax: +212 (0) 5 22 22 22 22",
-            style: TextStyle(fontSize: 16, color: PdfColors.black),
-          ),
+          Column(children: [
+            Text("GUEMAR LE ${sell.date.substring(0, 10)}"),
+            Text("FACTURE N° ${sell.id}G / ${sell.date.substring(0, 4)} "),
+            Text("CODE CLIENT : 00${sell.client.id}"),
+          ]),
         ],
       ),
     ]);

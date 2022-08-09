@@ -36,6 +36,7 @@ dependencies:
   intl:
   open_file:
   http:
+  number_to_character:
  
   flutter:
     sdk: flutter

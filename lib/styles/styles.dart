@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+import 'package:number_to_character/number_to_character.dart';
 
 import 'colors.dart';
 
@@ -36,3 +38,6 @@ const TextStyle mediButtonStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
     letterSpacing: 1);
+
+final formatCurrency =  NumberFormat.simpleCurrency(name: "");
+var converter = NumberToCharacterConverter('fr');

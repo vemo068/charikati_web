@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:charikati/controllers/client_controller.dart';
+import 'package:charikati/controllers/order_controller.dart';
 import 'package:charikati/models/sell.dart';
 import 'package:charikati/services/http_service.dart';
 import 'package:charikati/services/pdf_services/pdf_api.dart';
@@ -48,7 +49,9 @@ class SellController extends GetxController {
   }
 
   void printSell() async {
-    final File file = await PdfInvoiceApi.generateSell(selectedSell!);
+    OrderSellController orderSellController = Get.find<OrderSellController>();
+    final File file = await PdfInvoiceApi.generateSell(
+        selectedSell!, orderSellController.orders);
     PdfApi.openFile(file);
   }
 
