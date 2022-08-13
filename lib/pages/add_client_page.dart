@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddClientPage extends StatelessWidget {
-  AddClientPage({Key? key}) : super(key: key);
+  final bool isEdit;
+  AddClientPage({Key? key,required this.isEdit}) : super(key: key);
   final ClientController clientController = Get.find<ClientController>();
   @override
   Widget build(BuildContext context) {

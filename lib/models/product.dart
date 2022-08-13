@@ -2,9 +2,10 @@ class Product {
   int? id;
   String name;
   int stock;
-  int price;
+  int sellPrice;
+  int buyPrice;
 
-  Product({required this.name, required this.price, this.id,required this.stock});
+  Product({required this.name, required this.sellPrice, this.id,required this.stock,required this.buyPrice});
 
   //toJson method to convert the object to json format
   Map<String, dynamic> toJson() {
@@ -12,7 +13,8 @@ class Product {
       'productId': id,
       'name': name,
       'stock': stock,
-      'price': price,
+      'sellPrice': sellPrice,
+      'buyPrice': buyPrice,
     };
   }
   //fromJson method to convert the json to object format
@@ -21,7 +23,8 @@ class Product {
       id: json['productId'],
       name: json['name'],
       stock: json['stock']?.toInt() ?? 0,
-      price: json['price']?.toInt() ?? 0,
+      sellPrice: json['sellPrice']?.toInt() ?? 0,
+      buyPrice: json['buyPrice']?.toInt() ?? 0,
     );
   }
  

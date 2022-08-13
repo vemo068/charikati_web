@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddProductPage extends StatelessWidget {
-  AddProductPage({Key? key}) : super(key: key);
+  final bool isEdit;
+  AddProductPage({Key? key, required this.isEdit}) : super(key: key);
   final ProductController productController = Get.find<ProductController>();
 
   @override
   Widget build(BuildContext context) {
+    isEdit ? productController.initFields() : null;
     return Scaffold(
       backgroundColor: kcbackground,
       appBar: charikatiAppBar("Add Product"),
@@ -30,16 +32,23 @@ class AddProductPage extends StatelessWidget {
               ),
               TextField(
                 keyboardType: TextInputType.number,
-                controller: productController.priceController,
+                controller: productController.sellPriceController,
                 decoration: InputDecoration(
-                  labelText: "Product Price",
+                  labelText: "Sell Price (DA)",
                   border: OutlineInputBorder(),
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: productController.buyPriceController,
+                decoration: InputDecoration(
+                  labelText: "Buy Price (DA)",
+                  border: OutlineInputBorder(),
+                ),
+              ),
               SizedBox(
                 height: 40,
               ),

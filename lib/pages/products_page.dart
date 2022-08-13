@@ -20,7 +20,7 @@ class ProductsPage extends StatelessWidget {
       floatingActionButton: FabAjoute(
           text: "Ajouter un produit",
           ontap: () {
-            Get.to(() => AddProductPage());
+            Get.to(() => AddProductPage(isEdit: false,));
           }),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

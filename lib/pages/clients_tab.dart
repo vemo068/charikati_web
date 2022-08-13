@@ -9,8 +9,6 @@ import 'package:charikati/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
 class ClientsTab extends StatelessWidget {
   const ClientsTab({
     Key? key,
@@ -23,10 +21,11 @@ class ClientsTab extends StatelessWidget {
       floatingActionButton: FabAjoute(
         text: "Ajouter un client",
         ontap: () {
-          Get.to(() => AddClientPage());
+          Get.to(() => AddClientPage(
+                isEdit: false,
+              ));
         },
       ),
-    
       drawer: SettingDrawer(),
       body: NormalPadding(
           child: Column(

@@ -9,7 +9,8 @@ class ProductController extends GetxController {
   List<Product> products = [];
   Product? selectedProduct;
   TextEditingController nameController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
+  TextEditingController sellPriceController = TextEditingController();
+  TextEditingController buyPriceController = TextEditingController();
 
   @override
   void onInit() {
@@ -17,17 +18,25 @@ class ProductController extends GetxController {
     super.onInit();
   }
 
+  initFields() {
+    nameController.text = selectedProduct!.name;
+    sellPriceController.text = selectedProduct!.sellPrice.toString();
+    buyPriceController.text = selectedProduct!.buyPrice.toString();
+  }
+
   Future<void> saveProduct() async {
     Product product = Product(
+      id: selectedProduct != null ? selectedProduct!.id : null,
       stock: 0,
       name: nameController.text,
-      price: int.parse(priceController.text),
+      sellPrice: int.parse(sellPriceController.text),
+      buyPrice: int.parse(buyPriceController.text),
     );
     await httpService.insertProduct(product);
     await getAllProducts();
     Get.back();
     nameController.clear();
-    priceController.clear();
+    sellPriceController.clear();
 
     update();
   }
@@ -38,7 +47,7 @@ class ProductController extends GetxController {
   }
 
   Future<void> deleteProduct() async {
-   await httpService.deleteProduct(selectedProduct!.id!);
+    await httpService.deleteProduct(selectedProduct!.id!);
     await getAllProducts();
     update();
   }

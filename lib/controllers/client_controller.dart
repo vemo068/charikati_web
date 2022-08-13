@@ -10,7 +10,7 @@ class ClientController extends GetxController {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
   TextEditingController nifController = TextEditingController();
   TextEditingController rcnController = TextEditingController();
 
@@ -26,23 +26,38 @@ class ClientController extends GetxController {
       name = name.substring(0, name.length - 1);
     }
     Cliente client = Cliente(
-        name: name, phone: phoneController.text,  nif: nifController.text, rcn: rcnController.text);
+      id: selectedClient != null ? selectedClient!.id : null,
+      name: name,
+      phone: phoneController.text,
+      nif: nifController.text,
+      rcn: rcnController.text,
+    );
     await httpService.insertClient(client);
     getAllClients();
     Get.back();
     nameController.clear();
     phoneController.clear();
-    emailController.clear();
+    nifController.clear();
+    rcnController.clear();
     update();
   }
 
   void getAllClients() async {
-     clients = await httpService.getClients();
+    clients = await httpService.getClients();
     update();
   }
+
   deleteClient() async {
     await httpService.deleteClient(selectedClient!.id!);
     getAllClients();
     update();
+  }
+
+  void initFields() {
+    nameController.text = selectedClient!.name;
+    phoneController.text = selectedClient!.phone;
+
+    nifController.text = selectedClient!.nif;
+    rcnController.text = selectedClient!.rcn;
   }
 }

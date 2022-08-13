@@ -36,7 +36,7 @@ class OrderBuyController extends GetxController {
       product: productController.selectedProduct!,
       quantity: int.parse(quantityController.text),
       buy: buyController.selectedBuy!,
-      total: productController.selectedProduct!.price *
+      total: productController.selectedProduct!.buyPrice *
           int.parse(quantityController.text),
     );
 

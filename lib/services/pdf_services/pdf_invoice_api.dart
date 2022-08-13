@@ -67,7 +67,7 @@ class PdfInvoiceApi {
         // designation.name,
         "U",
         "${order.quantity}",
-        "${formatCurrency.format(order.product.price)}",
+        "${formatCurrency.format(order.product.sellPrice)}",
         //  "${product.price}"
         "${formatCurrency.format(order.total)}",
       ];

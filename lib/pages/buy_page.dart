@@ -21,12 +21,7 @@ class BuyPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kcbackground,
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: buyController.printBuy,
-            icon: Icon(Icons.file_copy),
-          ),
-        ],
+       
         title: Text("Buy Page"),
         foregroundColor: kcwhite,
         backgroundColor: kcmain,

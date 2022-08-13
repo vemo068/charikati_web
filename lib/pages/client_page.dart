@@ -4,6 +4,7 @@ import 'package:charikati/components/client_info_box.dart';
 import 'package:charikati/components/fab_ajoute.dart';
 import 'package:charikati/controllers/sell_controller.dart';
 import 'package:charikati/controllers/client_controller.dart';
+import 'package:charikati/pages/add_client_page.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:charikati/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class ClientPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: kcbackground,
       floatingActionButton: FabAjoute(
         text: "Ajouter un vente",
@@ -23,11 +25,13 @@ class ClientPage extends StatelessWidget {
           sellController.saveSell();
         },
       ),
-      appBar: charikatiAppBar("Client Info", actions: [
+      
+      appBar: charikatiAppBar("Client Info",actions: [
         IconButton(
-          icon: Icon(Icons.delete),
+          icon: Icon(Icons.edit),
           onPressed: () {
-            clientController.deleteClient();
+            clientController.initFields();
+            Get.to(()=> AddClientPage(isEdit: true,));
           },
         ),
       ]),

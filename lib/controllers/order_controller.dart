@@ -39,7 +39,7 @@ class OrderSellController extends GetxController {
   }
 
   void saveOrder() async {
-    int total = productController.selectedProduct!.price *
+    int total = productController.selectedProduct!.sellPrice *
         int.parse(quantityController.text);
     OrderSell order = OrderSell(
         total: total,
