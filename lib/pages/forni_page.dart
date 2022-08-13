@@ -4,6 +4,7 @@ import 'package:charikati/components/fab_ajoute.dart';
 import 'package:charikati/components/normal_padding.dart';
 import 'package:charikati/controllers/buy_controller.dart';
 import 'package:charikati/controllers/forni_controller.dart';
+import 'package:charikati/pages/add_forni_page.dart';
 import 'package:charikati/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,12 @@ class ForniPage extends StatelessWidget {
           _buyController.saveBuy();
         },
       ),
-      appBar: charikatiAppBar("fournisseur"),
+      appBar: charikatiAppBar("fournisseur",
+          actions: [IconButton(icon: Icon(Icons.edit), onPressed: () {
+            _forniController.initFields();
+            Get.to(()=>AddForniPage(isEdit: true,));
+
+          })]),
       body: NormalPadding(
         child: Column(
           children: [

@@ -1,5 +1,6 @@
 import 'package:charikati/models/product.dart';
 import 'package:charikati/services/http_service.dart';
+import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,18 +26,39 @@ class ProductController extends GetxController {
   }
 
   Future<void> saveProduct() async {
-    Product product = Product(
-      id: selectedProduct != null ? selectedProduct!.id : null,
-      stock: 0,
-      name: nameController.text,
-      sellPrice: int.parse(sellPriceController.text),
-      buyPrice: int.parse(buyPriceController.text),
-    );
-    await httpService.insertProduct(product);
-    await getAllProducts();
-    Get.back();
-    nameController.clear();
-    sellPriceController.clear();
+    if (nameController.text.isEmpty ||
+        sellPriceController.text.isEmpty ||
+        buyPriceController.text.isEmpty) {
+      Get.snackbar(
+        "Erreur",
+        "Veuillez remplir tous les champs",
+        icon: Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+        backgroundColor: kcbackground,
+        colorText: kcsecondary,
+        borderColor: Colors.red,
+        borderWidth: 1,
+        borderRadius: 10,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 2),
+      );
+    } else {
+      Product product = Product(
+        id: selectedProduct != null ? selectedProduct!.id : null,
+        stock: 0,
+        name: nameController.text,
+        sellPrice: int.parse(sellPriceController.text),
+        buyPrice: int.parse(buyPriceController.text),
+      );
+      await httpService.insertProduct(product);
+      await getAllProducts();
+      Get.back();
+      nameController.clear();
+      sellPriceController.clear();
+      buyPriceController.clear();
+    }
 
     update();
   }
@@ -48,7 +70,11 @@ class ProductController extends GetxController {
 
   Future<void> deleteProduct() async {
     await httpService.deleteProduct(selectedProduct!.id!);
+    Get.back();
     await getAllProducts();
+    nameController.clear();
+    sellPriceController.clear();
+    buyPriceController.clear();
     update();
   }
 }

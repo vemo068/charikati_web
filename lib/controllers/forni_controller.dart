@@ -18,6 +18,11 @@ class ForniController extends GetxController {
 
   TextEditingController phoneController = TextEditingController();
 
+  void initFields() {
+    nameController.text = selectedForni!.name;
+    phoneController.text = selectedForni!.phone;
+  }
+
   getAllFornis() async {
     fornis = await httpService.getFornis();
     update();
@@ -26,7 +31,9 @@ class ForniController extends GetxController {
   saveForni() async {
     if (nameController.text.isNotEmpty && phoneController.text.isNotEmpty) {
       Forni forni =
-          Forni(name: nameController.text, phone: phoneController.text);
+          Forni(
+            id: selectedForni != null ? selectedForni!.id : null,
+            name: nameController.text, phone: phoneController.text);
       await httpService.insertForni(forni);
       await getAllFornis();
       Get.back();
@@ -40,9 +47,13 @@ class ForniController extends GetxController {
   //   update();
   // }
 
-deleteForni() async {
+  deleteForni() async {
+    Get.back();
+    Get.back();
     await httpService.deleteForni(selectedForni!.id!);
     await getAllFornis();
+    nameController.text = "";
+    phoneController.text = "";
     update();
   }
 }

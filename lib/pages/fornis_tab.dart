@@ -19,7 +19,7 @@ class FornisTab extends StatelessWidget {
       floatingActionButton: FabAjoute(
         text: "Ajouter un fournisseur",
         ontap: () {
-          Get.to(() => AddForniPage());
+          Get.to(() => AddForniPage(isEdit: false,));
         },
       ),
       body: NormalPadding(

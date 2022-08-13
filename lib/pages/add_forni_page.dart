@@ -1,5 +1,6 @@
 import 'package:charikati/components/appbar.dart';
 import 'package:charikati/components/normal_padding.dart';
+import 'package:charikati/components/wide_button.dart';
 import 'package:charikati/controllers/forni_controller.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:charikati/styles/styles.dart';
@@ -7,10 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddForniPage extends StatelessWidget {
-  AddForniPage({Key? key}) : super(key: key);
+  final bool isEdit;
+  AddForniPage({Key? key,required this.isEdit}) : super(key: key);
   final ForniController _forniController = Get.find<ForniController>();
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       appBar: charikatiAppBar("Ajouter un fournisseur"),
       body: NormalPadding(
@@ -44,20 +47,11 @@ class AddForniPage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          MaterialButton(
-            minWidth: double.infinity,
-            color: kcsecondary,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                "Ajouter",
-                style: mediButtonStyle,
-              ),
-            ),
-            onPressed: () {
-              _forniController.saveForni();
-            },
-          ),
+         WideButton(text:isEdit?"Sauvgarder": "Ajouter", onPressed: _forniController.saveForni(), color: kcsecondary),
+         SizedBox(
+          height: 20,
+         ),
+        isEdit? WideButton(text:"Supprimer", onPressed: _forniController.deleteForni(), color: Colors.red):SizedBox(),
         ],
       )),
     );

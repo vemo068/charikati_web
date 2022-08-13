@@ -1,5 +1,6 @@
 import 'package:charikati/components/appbar.dart';
 import 'package:charikati/components/normal_padding.dart';
+import 'package:charikati/components/wide_button.dart';
 import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -52,12 +53,26 @@ class AddProductPage extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              MaterialButton(
-                color: kcaccent,
+              WideButton(
+                text: isEdit ? "Sauvgarder" : "Ajouter",
                 onPressed: () {
                   productController.saveProduct();
                 },
-              )
+                color: kcsecondary,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              isEdit
+                  ? WideButton(
+                      text: "Supprimer",
+                      onPressed: () {
+                        
+                        productController.deleteProduct();
+                      },
+                      color: Colors.red,
+                    )
+                  : SizedBox(),
             ]),
           )),
     );
