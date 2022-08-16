@@ -54,6 +54,9 @@ class ClientController extends GetxController {
         rcn: rcnController.text,
       );
       await httpService.insertClient(client);
+      if (selectedClient != null) {
+        updateClient();
+      }
       getAllClients();
       Get.back();
       nameController.clear();
@@ -88,5 +91,10 @@ class ClientController extends GetxController {
 
     nifController.text = selectedClient!.nif;
     rcnController.text = selectedClient!.rcn;
+  }
+
+  updateClient() async {
+    selectedClient = await httpService.getClientById(selectedClient!.id!);
+    update();
   }
 }

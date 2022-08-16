@@ -47,11 +47,11 @@ class AddForniPage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-         WideButton(text:isEdit?"Sauvgarder": "Ajouter", onPressed: _forniController.saveForni(), color: kcsecondary),
+         WideButton(text:isEdit?"Sauvgarder": "Ajouter", onPressed: _forniController.saveForni, color: kcsecondary),
          SizedBox(
           height: 20,
          ),
-        isEdit? WideButton(text:"Supprimer", onPressed: _forniController.deleteForni(), color: Colors.red):SizedBox(),
+        isEdit? WideButton(text:"Supprimer", onPressed: _forniController.deleteForni, color: Colors.red):SizedBox(),
         ],
       )),
     );

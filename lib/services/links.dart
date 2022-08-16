@@ -4,10 +4,12 @@ const String baseUrl = "http://localhost:8080/";
 const String clientsUrl = baseUrl + "clients";
 const String addClientUrl = baseUrl + "addClient";
 const String deleteClientUrl = baseUrl + "deleteclient";
+const String getClientByIdUrl = baseUrl + "client";
 
 const String fornisUrl = baseUrl + "fornis";
 const String addForniUrl = baseUrl + "addforni";
 const String deleteForniUrl = baseUrl + "deleteforni";
+const String getForniByIdUrl = baseUrl + "forni";
 
 const String productsUrl = baseUrl + "products";
 const String addProductUrl = baseUrl + "addproduct";

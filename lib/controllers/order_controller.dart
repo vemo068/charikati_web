@@ -76,9 +76,12 @@ class OrderSellController extends GetxController {
   }
 
   deleteOrder() async {
+    
     await httpService.deleteOrderSell(selectedOrder!.id!);
     sellController.updateSell();
+    productController.selectedProduct = null;
     getSellOrders();
+    await productController.getAllProducts();
     update();
   }
 }

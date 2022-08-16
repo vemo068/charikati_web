@@ -54,7 +54,10 @@ class OrderBuyController extends GetxController {
 
   deleteOrderBuy() async {
     await httpService.deleteOrderBuy(selectedOrderBuy!.id!);
+    buyController.updateBuy();
+    productController.selectedProduct = null;
     getOrderBuys();
+    await productController.getAllProducts();
     update();
   }
 

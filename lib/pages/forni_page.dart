@@ -22,29 +22,37 @@ class ForniPage extends StatelessWidget {
           _buyController.saveBuy();
         },
       ),
-      appBar: charikatiAppBar("fournisseur",
-          actions: [IconButton(icon: Icon(Icons.edit), onPressed: () {
-            _forniController.initFields();
-            Get.to(()=>AddForniPage(isEdit: true,));
-
-          })]),
+      appBar: charikatiAppBar("fournisseur", actions: [
+        IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              _forniController.initFields();
+              Get.to(() => AddForniPage(
+                    isEdit: true,
+                  ));
+            })
+      ]),
       body: NormalPadding(
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.center,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(_forniController.selectedForni!.name,
-                      style: mediHeadlineStyle),
-                  Text(
-                    "Buys history",
-                    style: mediHeading3Style,
-                  ),
-                ],
-              ),
-            ),
+            GetBuilder(
+                init: _forniController,
+                builder: (_) {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(_forniController.selectedForni!.name,
+                            style: mediHeadlineStyle),
+                        Text(
+                          "Buys history",
+                          style: mediHeading3Style,
+                        ),
+                      ],
+                    ),
+                  );
+                }),
             Expanded(
               child: BuysList(),
             )

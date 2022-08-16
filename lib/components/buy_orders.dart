@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-
-
 class BuyOrders extends StatelessWidget {
   BuyOrders({Key? key}) : super(key: key);
-final OrderBuyController orderController = Get.find<OrderBuyController>();
+  final OrderBuyController orderController = Get.find<OrderBuyController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
@@ -41,8 +39,8 @@ class OrderBuyTile extends StatelessWidget {
     required this.order,
   }) : super(key: key);
   final ProductController productController = Get.find<ProductController>();
- final OrderBuyController orderController = Get.find<OrderBuyController>();
- final BuyController buyController = Get.find<BuyController>();
+  final OrderBuyController orderController = Get.find<OrderBuyController>();
+  final BuyController buyController = Get.find<BuyController>();
   @override
   Widget build(BuildContext context) {
     return ListTile(
