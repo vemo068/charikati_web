@@ -54,10 +54,7 @@ class BuyController extends GetxController {
     update();
   }
 
-  void printBuy() async {
-    final File file = await PdfInvoiceApi.generateBuy(selectedBuy!,[]);
-    PdfApi.openFile(file);
-  }
+  
 
   @override
   void onClose() {

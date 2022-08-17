@@ -1,5 +1,6 @@
 import 'package:charikati/controllers/home_controller.dart';
 import 'package:charikati/pages/home.dart';
+import 'package:charikati/pages/login_page.dart';
 import 'package:charikati/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class CharikatyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomePage(),
+      home: LoginPage(),
     );
   }
 }

@@ -51,8 +51,24 @@ class AddClientPage extends StatelessWidget {
               height: 10,
             ),
             TxtField(
-                hint: "Client phone",
+                hint: "Phone",
                 controller: clientController.phoneController),
+            SizedBox(height: 20),
+            TxtField(
+                hint: "Description",
+                controller: clientController.descriptionController),
+            SizedBox(height: 20),
+            TxtField(
+                hint: "Address",
+                controller: clientController.addressController),
+            SizedBox(height: 20),
+            TxtField(
+                hint: "N A I",
+                controller: clientController.naiController),
+            SizedBox(height: 20),
+            TxtField(
+                hint: "N I S",
+                controller: clientController.nisController),
             SizedBox(height: 20),
             WideButton(
                 text: isEdit ? "Sauvgarder" : "Ajouter",

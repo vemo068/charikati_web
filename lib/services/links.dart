@@ -33,3 +33,6 @@ const String deleteOrderSellUrl = baseUrl + "deleteordersell";
 const String orderBuysUrl = baseUrl + "orderbuys";
 const String addOrderBuyUrl = baseUrl + "addorderbuy";
 const String deleteOrderBuyUrl = baseUrl + "deleteorderbuy";
+
+
+const String loginUrl=baseUrl+"login";

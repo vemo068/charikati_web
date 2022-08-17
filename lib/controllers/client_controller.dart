@@ -12,7 +12,11 @@ class ClientController extends GetxController {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  // TextEditingController emailController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController naiController = TextEditingController();
+  TextEditingController nisController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
   TextEditingController nifController = TextEditingController();
   TextEditingController rcnController = TextEditingController();
 
@@ -52,6 +56,10 @@ class ClientController extends GetxController {
         phone: phoneController.text,
         nif: nifController.text,
         rcn: rcnController.text,
+        address: addressController.text,
+        nai: naiController.text,
+        nis: nisController.text,
+        description: descriptionController.text,
       );
       await httpService.insertClient(client);
       if (selectedClient != null) {
@@ -63,6 +71,10 @@ class ClientController extends GetxController {
       phoneController.clear();
       nifController.clear();
       rcnController.clear();
+      naiController.clear();
+      nisController.clear();
+      descriptionController.clear();
+      addressController.clear();
     }
 
     update();
@@ -81,14 +93,26 @@ class ClientController extends GetxController {
     phoneController.clear();
     nifController.clear();
     rcnController.clear();
+    naiController.clear();
+    nisController.clear();
+    descriptionController.clear();
+    addressController.clear();
     getAllClients();
     update();
   }
 
   void initFields() {
     nameController.text = selectedClient!.name;
-    phoneController.text = selectedClient!.phone;
-
+    phoneController.text =
+        selectedClient!.phone != null ? selectedClient!.phone! : "";
+    naiController.text =
+        selectedClient!.nai == null ? "" : selectedClient!.nai!;
+    nisController.text =
+        selectedClient!.nis == null ? "" : selectedClient!.nis!;
+    descriptionController.text =
+        selectedClient!.description == null ? "" : selectedClient!.description!;
+    addressController.text =
+        selectedClient!.address == null ? "" : selectedClient!.address!;
     nifController.text = selectedClient!.nif;
     rcnController.text = selectedClient!.rcn;
   }

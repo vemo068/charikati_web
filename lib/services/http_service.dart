@@ -7,6 +7,7 @@ import 'package:charikati/models/order_buy.dart';
 import 'package:charikati/models/order_sell.dart';
 import 'package:charikati/models/product.dart';
 import 'package:charikati/models/sell.dart';
+import 'package:charikati/models/user.dart';
 import 'package:charikati/services/links.dart';
 import 'package:http/http.dart';
 
@@ -254,6 +255,27 @@ class HttpService {
       return true;
     } else {
       return false;
+    }
+  }
+
+   Future<User?> loginUser(String name, String password) async {
+    // var response = await http.get(Uri.parse(url));
+    Map<String, dynamic> data = {
+      "name": name,
+      "password": password,
+    };
+    Response response = await post(Uri.parse(loginUrl),
+        body: json.encode(data), headers: {"Content-Type": "application/json"});
+
+    if (response.statusCode == 200) {
+      if (response.body == "") {
+        return null;
+      } else {
+        var body = await json.decode(response.body);
+        return User.fromJson(body);
+      }
+    } else {
+      throw "Unable to send rendv.";
     }
   }
 }

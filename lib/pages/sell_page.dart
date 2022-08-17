@@ -78,7 +78,8 @@ class SellInfoBox extends StatelessWidget {
           GetBuilder(
               init: sellController,
               builder: (_) {
-                return Text("${sellController.selectedSell!.total} DA",
+                return Text(
+                    "${formatCurrency.format(sellController.selectedSell!.total)} DA",
                     style: mediHeading2Style.copyWith(color: kcaccent));
               }),
         ],

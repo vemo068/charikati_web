@@ -10,12 +10,16 @@ class ClientInfoBox extends StatelessWidget {
   ClientInfoBox({Key? key}) : super(key: key);
   final ClientController clientController = Get.find<ClientController>();
 
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
+  Future<void> _makePhoneCall(String? phoneNumber) async {
+    if (phoneNumber == null || phoneNumber.isEmpty) {
+      Get.snackbar("Number not found", "this client has no phone number");
+    } else {
+      final Uri launchUri = Uri(
+        scheme: 'tel',
+        path: phoneNumber,
+      );
+      await launchUrl(launchUri);
+    }
   }
 
   String? encodeQueryParameters(Map<String, String> params) {

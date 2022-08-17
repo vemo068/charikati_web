@@ -9,6 +9,6 @@ class WelcomeController extends GetxController {
   }
 
   testConnection() {
-    Get.to(() => LoginPage());
+    //!Get.to(() => LoginPage());
   }
 }

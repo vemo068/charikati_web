@@ -1,6 +1,7 @@
 import 'package:charikati/components/appbar.dart';
 import 'package:charikati/components/ch_text_field.dart';
 import 'package:charikati/components/normal_padding.dart';
+import 'package:charikati/components/wide_button.dart';
 import 'package:charikati/controllers/login_controller.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,24 @@ class LoginPage extends StatelessWidget {
       body: NormalPadding(
           child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TxtField(hint: "Username", controller: loginController.usernameController),
-             TxtField(hint: "Password", controller: loginController.passwordController),
-
+            TxtField(
+                hint: "Username",
+                controller: loginController.usernameController),
+            SizedBox(
+              height: 20,
+            ),
+            TxtField(
+                hint: "Password",
+                controller: loginController.passwordController),
+            SizedBox(
+              height: 40,
+            ),
+            WideButton(
+                text: "Login",
+                onPressed: loginController.login,
+                color: Colors.green),
           ],
         ),
       )),
