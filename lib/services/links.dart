@@ -20,11 +20,15 @@ const String sellsUrl = baseUrl + "sells";
 const String addSellUrl = baseUrl + "addsell";
 const String getSellUrl = baseUrl + "sell";
 const String deleteSellUrl = baseUrl + "deletesell";
+const String getAllSellsUrl = baseUrl + "allsells";
+const String getSellsTotalUrl = baseUrl + "sellstotal";
 
 const String buysUrl = baseUrl + "buys";
 const String addBuyUrl = baseUrl + "addbuy";
 const String getById = baseUrl + "buy";
 const String deleteBuyUrl = baseUrl + "deletebuy";
+const String getAllBuysUrl = baseUrl + "allbuys";
+const String getBuysTotalUrl = baseUrl + "buystotal";
 
 const String orderSellsUrl = baseUrl + "ordersells";
 const String addOrderSellUrl = baseUrl + "addordersell";

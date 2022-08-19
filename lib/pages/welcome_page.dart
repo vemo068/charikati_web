@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({Key? key}) : super(key: key);
-  final WelcomeController welcomeController = Get.put(WelcomeController());
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

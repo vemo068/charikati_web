@@ -37,6 +37,7 @@ dependencies:
   open_file:
   http:
   number_to_character:
+  get_storage: ^2.0.3
  
   flutter:
     sdk: flutter
@@ -68,10 +69,19 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/OpenSans-Regular.ttf
+        - asset: assets/OpenSans-Bold.ttf
+        - asset: assets/OpenSans-Italic.ttf
+        - asset: assets/OpenSans-BoldItalic.ttf
+         
 
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+   
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

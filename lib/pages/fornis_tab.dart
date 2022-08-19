@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class FornisTab extends StatelessWidget {
   FornisTab({Key? key}) : super(key: key);
-  final ForniController forniController = Get.find<ForniController>();
+  final ForniController forniController = Get.put(ForniController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,9 @@ class FornisTab extends StatelessWidget {
       floatingActionButton: FabAjoute(
         text: "Ajouter un fournisseur",
         ontap: () {
-          Get.to(() => AddForniPage(isEdit: false,));
+          Get.to(() => AddForniPage(
+                isEdit: false,
+              ));
         },
       ),
       body: NormalPadding(

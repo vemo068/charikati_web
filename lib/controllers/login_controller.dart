@@ -4,8 +4,10 @@ import 'package:charikati/services/http_service.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginController extends GetxController {
+  final dataLogin = GetStorage();
   User? currentUser;
   final HttpService httpService = HttpService();
   TextEditingController usernameController = TextEditingController();
@@ -49,6 +51,8 @@ class LoginController extends GetxController {
           duration: Duration(seconds: 2),
         );
       } else {
+        dataLogin.write('username', currentUser!.username);
+        dataLogin.write('password', currentUser!.password);
         Get.to(() => HomePage());
       }
     }

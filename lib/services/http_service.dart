@@ -41,6 +41,34 @@ class HttpService {
     }
     return fornis;
   }
+ Future<List<Sell>> getAllSells() async {
+    Response response = await get(Uri.parse(getAllSellsUrl));
+    var jsonResponse = json.decode(response.body);
+    List<Sell> sells = [];
+    for (var s in jsonResponse) {
+      sells.add(Sell.fromJson(s));
+    }
+    return sells;
+  }
+  Future<List<Buy>> getAllBuys() async {
+    Response response = await get(Uri.parse(getAllBuysUrl));
+    var jsonResponse = json.decode(response.body);
+    List<Buy> buys = [];
+    for (var b in jsonResponse) {
+      buys.add(Buy.fromJson(b));
+    }
+    return buys;
+  }
+  Future<int> getSellsTotal() async {
+    Response response = await get(Uri.parse(getSellsTotalUrl));
+    var jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+  Future<int> getBuysTotal() async {
+    Response response = await get(Uri.parse(getBuysTotalUrl));
+    var jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
 
   Future<Sell> getSellById(int id) async {
     Response response = await get(Uri.parse(getSellUrl + "?id=+$id"));
@@ -278,4 +306,5 @@ class HttpService {
       throw "Unable to send rendv.";
     }
   }
+  
 }

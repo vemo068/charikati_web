@@ -19,8 +19,7 @@ import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
-  final ClientController clientController = Get.put(ClientController());
-  final ForniController forniController = Get.put(ForniController());
+
   final HomeController homeController = Get.find<HomeController>();
 
   @override
@@ -36,7 +35,6 @@ class HomePage extends StatelessWidget {
               children: [
                 ClientsTab(),
                 FornisTab(),
-                StatsTab(),
               ],
             );
           }),
@@ -54,10 +52,6 @@ class HomePage extends StatelessWidget {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.arrow_circle_down),
                   label: 'Buys',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.auto_graph),
-                  label: 'Stats',
                 ),
               ],
             );
