@@ -21,7 +21,6 @@ class BuyPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kcbackground,
       appBar: AppBar(
-       
         title: Text("Buy Page"),
         foregroundColor: kcwhite,
         backgroundColor: kcmain,
@@ -74,7 +73,8 @@ class BuyInfoBox extends StatelessWidget {
           GetBuilder(
               init: buyController,
               builder: (_) {
-                return Text("${buyController.selectedBuy!.total} DA",
+                return Text(
+                    "${formatCurrency.format(buyController.selectedBuy!.total)} DA",
                     style: mediHeading2Style.copyWith(color: kcaccent));
               }),
         ],

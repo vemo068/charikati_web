@@ -13,7 +13,6 @@ class StatsController extends GetxController {
 
   @override
   void onInit() {
-   
     super.onInit();
   }
 
@@ -38,15 +37,20 @@ class StatsController extends GetxController {
     });
   }
 
+  bool totalLoding = false;
   void getTotals() async {
+    totalLoding = true;
+    update();
     totalBuys = await httpService.getBuysTotal();
     totalSells = await httpService.getSellsTotal();
+    totalLoding = false;
     update();
   }
 
   inisTotals() {
+     getTotals();
     getAllSells();
     getAllBuys();
-    getTotals();
+   
   }
 }

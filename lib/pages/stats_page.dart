@@ -1,8 +1,8 @@
 import 'package:charikati/components/appbar.dart';
 import 'package:charikati/components/normal_padding.dart';
-import 'package:charikati/controllers/sell_controller.dart';
+
 import 'package:charikati/controllers/stats_controller.dart';
-import 'package:charikati/main.dart';
+
 import 'package:charikati/styles/colors.dart';
 import 'package:charikati/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +15,7 @@ class StatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     statsController.inisTotals();
     return Scaffold(
+      backgroundColor: kcbackground,
       appBar: charikatiAppBar("Stats"),
       body: Column(
         children: [
@@ -23,25 +24,25 @@ class StatsPage extends StatelessWidget {
               flex: 2,
               child: Container(
                 width: double.infinity,
-                child: NormalPadding(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 40,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: ((context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: YearSlot(year: listOfYears[index]),
-                            );
-                          }),
-                          itemCount: listOfYears.length,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // child: NormalPadding(
+                //   child: Column(
+                //     children: [
+                //       SizedBox(
+                //         height: 40,
+                //         child: ListView.builder(
+                //           scrollDirection: Axis.horizontal,
+                //           itemBuilder: ((context, index) {
+                //             return Padding(
+                //               padding: const EdgeInsets.only(right: 10),
+                //               child: YearSlot(year: listOfYears[index]),
+                //             );
+                //           }),
+                //           itemCount: listOfYears.length,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ))
         ],
       ),
@@ -85,6 +86,8 @@ class TotalsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(top: 20),
+      color: kcbackground,
       width: double.infinity,
       child: NormalPadding(
         child: GetBuilder(
@@ -94,16 +97,18 @@ class TotalsContainer extends StatelessWidget {
                   statsController.totalSells > statsController.totalBuys;
               return Column(
                 children: [
-                  Text(
-                    formatCurrency.format(statsController.totalSells -
-                            statsController.totalBuys) +
-                        " DA",
-                    style: mediHeadlineStyle.copyWith(
-                        color: isBenifit ? Colors.green : kcaccent),
-                  ),
+                  statsController.totalLoding
+                      ? CircularProgressIndicator()
+                      : Text(
+                          formatCurrency.format(statsController.totalSells -
+                                  statsController.totalBuys) +
+                              " DA",
+                          style: mediHeadlineStyle.copyWith(
+                              color: isBenifit ? Colors.green : kcaccent),
+                        ),
                   Text(
                     "Total",
-                    style: mediSubheadingStyle.copyWith(color: kcwhite),
+                    style: mediSubheadingStyle.copyWith(color: kcsecondary),
                   ),
                   SizedBox(
                     height: 20,
@@ -115,15 +120,19 @@ class TotalsContainer extends StatelessWidget {
                         onTap: () {},
                         child: Column(
                           children: [
-                            Text(
-                              formatCurrency.format(statsController.totalBuys) +
-                                  " DA",
-                              style: mediButtonStyle.copyWith(color: kcwhite),
-                            ),
+                            statsController.totalLoding
+                                ? CircularProgressIndicator()
+                                : Text(
+                                    formatCurrency
+                                            .format(statsController.totalBuys) +
+                                        " DA",
+                                    style: mediButtonStyle.copyWith(
+                                        color: kcsecondary),
+                                  ),
                             Text(
                               "Total des achats",
-                              style:
-                                  mediSubheadingStyle.copyWith(color: kcwhite),
+                              style: mediSubheadingStyle.copyWith(
+                                  color: kcsecondary),
                             ),
                           ],
                         ),
@@ -132,16 +141,19 @@ class TotalsContainer extends StatelessWidget {
                         onTap: () {},
                         child: Column(
                           children: [
-                            Text(
-                              formatCurrency
-                                      .format(statsController.totalSells) +
-                                  " DA",
-                              style: mediButtonStyle.copyWith(color: kcwhite),
-                            ),
+                            statsController.totalLoding
+                                ? CircularProgressIndicator()
+                                : Text(
+                                    formatCurrency.format(
+                                            statsController.totalSells) +
+                                        " DA",
+                                    style: mediButtonStyle.copyWith(
+                                        color: kcsecondary),
+                                  ),
                             Text(
                               "Total des ventes",
-                              style:
-                                  mediSubheadingStyle.copyWith(color: kcwhite),
+                              style: mediSubheadingStyle.copyWith(
+                                  color: kcsecondary),
                             ),
                           ],
                         ),
@@ -152,7 +164,6 @@ class TotalsContainer extends StatelessWidget {
               );
             }),
       ),
-      color: kcmain,
     );
   }
 }

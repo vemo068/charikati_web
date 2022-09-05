@@ -18,19 +18,18 @@ import 'package:pdf/widgets.dart';
 class PdfInvoiceApi {
   static Future<File> generateSell(
       Sell sell, List<OrderSell> orderSells) async {
-   var myTheme = ThemeData.withFont(
-  base: Font.ttf(await rootBundle.load("assets/OpenSans-Regular.ttf")),
-  bold: Font.ttf(await rootBundle.load("assets/OpenSans-Bold.ttf")),
-  italic: Font.ttf(await rootBundle.load("assets/OpenSans-Italic.ttf")),
-  boldItalic: Font.ttf(await rootBundle.load("assets/OpenSans-BoldItalic.ttf")),
-);
+    var myTheme = ThemeData.withFont(
+      base: Font.ttf(await rootBundle.load("assets/OpenSans-Regular.ttf")),
+      bold: Font.ttf(await rootBundle.load("assets/OpenSans-Bold.ttf")),
+      italic: Font.ttf(await rootBundle.load("assets/OpenSans-Italic.ttf")),
+      boldItalic:
+          Font.ttf(await rootBundle.load("assets/OpenSans-BoldItalic.ttf")),
+    );
     final pdf = Document(
       theme: myTheme,
     );
 
-    pdf.addPage(
-      
-      MultiPage(
+    pdf.addPage(MultiPage(
       theme: ThemeData.withFont(),
       build: (context) => [
         headerSell(sell),
@@ -45,12 +44,20 @@ class PdfInvoiceApi {
         Divider(),
         ordersList(orderSells),
         Divider(),
-        Text(formatCurrency.format(sell.total!)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(formatCurrency.format(sell.total!) + "DA",
+                style: TextStyle(fontSize: 17)),
+            SizedBox(width: 20),
+          ],
+        ),
+        SizedBox(height: 20),
         Text(
-            "ARRETE LA PRESENTE FACTURE A LA SOMME DE . " +
-                converter.convertInt(sell.total!).toUpperCase() +
-                " D.A",
-           ),
+          "ARRETE LA PRESENTE FACTURE A LA SOMME DE . " +
+              converter.convertInt(sell.total!).toUpperCase() +
+              " D.A",
+        ),
       ],
       //footer: (context) => buildFooter(invoice),
     ));
@@ -64,15 +71,23 @@ class PdfInvoiceApi {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("DOIT , ${client.name}"),
-        client.description != null ? Text("${client.description}") : SizedBox(),
-        client.address != null
+        client.description != null && client.description != ""
+            ? Text("${client.description}")
+            : SizedBox(),
+        client.address != null && client.address != ""
             ? Text("ADDRESS : ${client.address}")
             : SizedBox(),
         Text("N° I.F , ${client.nif}"),
         Text("N° R.C , ${client.rcn}"),
-        client.phone != null ? Text("TEL : ${client.phone}") : SizedBox(),
-        client.nai != null ? Text("NAI : ${client.nai}") : SizedBox(),
-        client.nis != null ? Text("NIS : ${client.nis}") : SizedBox(),
+        client.phone != null && client.phone != ""
+            ? Text("TEL : ${client.phone}")
+            : SizedBox(),
+        client.nai != null && client.nai != ""
+            ? Text("NAI : ${client.nai}")
+            : SizedBox(),
+        client.nis != null && client.nis != ""
+            ? Text("NIS : ${client.nis}")
+            : SizedBox(),
       ],
     );
   }
@@ -128,7 +143,6 @@ class PdfInvoiceApi {
         "IMPORTATION DES EQUIPEMENTS & MATERIELS AU DOMAINE DE L'INDUSTRIE DES METAUX",
         textAlign: TextAlign.center,
         style: TextStyle(
-         
           color: PdfColors.black,
         ),
       ),
@@ -140,35 +154,27 @@ class PdfInvoiceApi {
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
               "SARL AU CAPITAL 15.000.000 D.A .",
-             
             ),
             Text(
               "N° R.C , 21 B 0544700-00/39",
-             
             ),
             Text(
               "N° I.F , 00213954470024",
-            
             ),
             Text(
               "N° I.S , 002139060004559",
-              
             ),
             Text(
               "N° A.I , 39060016530",
-             
             ),
             Text(
               "N° TELEPHONE , 06 96 00 67 11",
-             
             ),
             Text(
               "N° TELEPHONE , 05 42 28 98 05",
-              
             ),
             Text(
               "E-MAIL , maaden.sahra@gmail.com",
-             
             ),
           ]),
           clientSection1(sell),
@@ -181,15 +187,12 @@ class PdfInvoiceApi {
     return Column(children: [
       Text(
         "GUEMAR LE ${sell.date.substring(0, 10)}",
-       
       ),
       Text(
         "FACTURE N° ${sell.id}G / ${sell.date.substring(0, 4)} ",
-       
       ),
       Text(
         "CODE CLIENT : 00${sell.client.id}",
-       
       ),
     ]);
   }

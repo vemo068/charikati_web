@@ -11,19 +11,25 @@ import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
-   final LoginController loginController = Get.put(LoginController());
- 
+  final LoginController loginController = Get.put(LoginController());
+
   final WelcomeController welcomeController = Get.put(WelcomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: charikatiAppBar("Login"),
-      backgroundColor: kcbackground,
+      backgroundColor: kcwhite,
       body: NormalPadding(
           child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          //  mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+                padding: EdgeInsets.all(20),
+                child: Image.asset("assets/charikati.png")),
+            SizedBox(
+              height: 20,
+            ),
             TxtField(
                 hint: "Username",
                 controller: loginController.usernameController),

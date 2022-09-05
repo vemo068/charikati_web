@@ -3,9 +3,6 @@ import 'package:charikati/styles/colors.dart';
 import 'package:charikati/styles/styles.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 class AddOrderBuyButton extends StatelessWidget {
   const AddOrderBuyButton({Key? key}) : super(key: key);
 
@@ -21,15 +18,16 @@ class AddOrderBuyButton extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         padding: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: kcmain)),
+          color: kcaccent,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Center(
             child: Text(
           "Add Order",
-          style: mediButtonStyle.copyWith(color: kcmain),
+          style: mediButtonStyle.copyWith(color: kcsecondary),
         )),
       ),
     );

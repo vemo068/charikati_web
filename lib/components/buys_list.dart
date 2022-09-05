@@ -9,16 +9,33 @@ class BuysList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: buyController,
-      builder: (_) {
-        return ListView.builder(
-
-          itemCount: buyController.buys.length,
-          itemBuilder: (context, index) {
-            return BuyTile(buy: buyController.buys[index]);
-          },
-        );
-      }
-    );
+        init: buyController,
+        builder: (_) {
+          if (buyController.loadingBuys) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Loading..."),
+                ],
+              ),
+            );
+          } else if (buyController.buys.isNotEmpty) {
+            return ListView.builder(
+              itemCount: buyController.buys.length,
+              itemBuilder: (context, index) {
+                return BuyTile(buy: buyController.buys[index]);
+              },
+            );
+          } else {
+            return Center(
+              child: Text("No buys."),
+            );
+          }
+        });
   }
 }

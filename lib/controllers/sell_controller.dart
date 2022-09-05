@@ -30,12 +30,15 @@ class SellController extends GetxController {
     );
 
     Get.defaultDialog(
-        title: "Adding Sell..",
-        middleText: "",
-        content: CircularProgressIndicator(),barrierDismissible: false,);
+      title: "Adding Sell..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.insertSell(sell);
-    Get.back();
     await getClientSells();
+    Get.back();
+
     update();
   }
 
@@ -60,15 +63,30 @@ class SellController extends GetxController {
   }
 
   void printSell() async {
+    Get.defaultDialog(
+      title: "Generating facture..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     OrderSellController orderSellController = Get.find<OrderSellController>();
     final File file = await PdfInvoiceApi.generateSell(
         selectedSell!, orderSellController.orders);
+    Get.back();
     PdfApi.openFile(file);
   }
 
   deleteSell() async {
+    Get.defaultDialog(
+      title: "Deleting Sell..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.deleteSell(selectedSell!.id!);
     await getClientSells();
+    Get.back();
+    Get.back();
     update();
   }
 }

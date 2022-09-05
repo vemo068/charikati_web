@@ -8,7 +8,6 @@ class BuyController extends GetxController {
   final HttpService httpService = HttpService();
   final ForniController forniController = Get.find<ForniController>();
   bool loadingBuys = false;
-  bool saveLoading = false;
 
   List<Buy> buys = [];
   Buy? selectedBuy;
@@ -26,17 +25,21 @@ class BuyController extends GetxController {
       date: DateTime.now().toString().substring(0, 16),
     );
     Get.defaultDialog(
-        title: "Adding Buy..",
-        middleText: "",
-        content: CircularProgressIndicator());
+      title: "Adding Buy..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.insertBuy(buy);
-    Get.back();
     await getForniBuys();
+    Get.back();
+
     update();
   }
 
   getForniBuys() async {
     loadingBuys = true;
+    update();
     var b = await httpService.getForniBuys(forniController.selectedForni!.id!);
     if (b != null) {
       buys = List.from(b.reversed);
@@ -55,7 +58,15 @@ class BuyController extends GetxController {
   }
 
   deleteBuy() async {
+    Get.defaultDialog(
+      title: "Deleting Buy..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.deleteBuy(selectedBuy!.id!);
+    Get.back();
+    Get.back();
     await getForniBuys();
     update();
   }

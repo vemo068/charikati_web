@@ -51,10 +51,16 @@ class OrderSellController extends GetxController {
         quantity: int.parse(quantityController.text),
         product: productController.selectedProduct!,
         sell: sellController.selectedSell!);
-    saveLoading = true;
+    Get.defaultDialog(
+      title: "Adding order..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.insertOrderSell(order);
-    saveLoading = false;
+
     getSellOrders();
+    Get.back();
     Get.back();
     count = 1;
     quantityController.text = "$count";
@@ -82,11 +88,19 @@ class OrderSellController extends GetxController {
   }
 
   deleteOrder() async {
+    Get.defaultDialog(
+      title: "Deleting Order..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.deleteOrderSell(selectedOrder!.id!);
     sellController.updateSell();
     productController.selectedProduct = null;
     getSellOrders();
     await productController.getAllProducts();
+    Get.back();
+    Get.back();
     update();
   }
 }

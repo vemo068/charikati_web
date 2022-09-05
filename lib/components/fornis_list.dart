@@ -40,7 +40,7 @@ class ForniList extends StatelessWidget {
             );
           } else {
             return Center(
-              child: Text("no fornisseurs"),
+              child: Text("no fornisseurs."),
             );
           }
         });

@@ -17,7 +17,6 @@ class ClientPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: kcbackground,
       floatingActionButton: FabAjoute(
         text: "Ajouter un vente",
@@ -25,24 +24,31 @@ class ClientPage extends StatelessWidget {
           sellController.saveSell();
         },
       ),
-      
-      appBar: charikatiAppBar("Client Info",actions: [
+      appBar: charikatiAppBar("Client Info", actions: [
         IconButton(
           icon: Icon(Icons.edit),
           onPressed: () {
             clientController.initFields();
-            Get.to(()=> AddClientPage(isEdit: true,));
+            Get.to(() => AddClientPage(
+                  isEdit: true,
+                ));
           },
         ),
       ]),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ClientInfoBox(),
-          SizedBox(height: 20),
-          Text(
-            "Buys History",
-            style: mediHeadlineStyle,
+          Container(color: kcbackground, child: ClientInfoBox()),
+          // SizedBox(height: 20),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            color: kcbackground,
+            alignment: Alignment.center,
+            width: double.infinity,
+            child: Text(
+              "Sells History",
+              style: mediHeadlineStyle,
+            ),
           ),
           SizedBox(height: 10),
           Expanded(child: ClientSells()),

@@ -42,7 +42,7 @@ class ProductsPage extends StatelessWidget {
                     ],
                   ),
                 );
-              } else {
+              } else if (productController.products.isNotEmpty) {
                 return ListView.builder(
                     itemCount: productController.products.length,
                     itemBuilder: (context, index) {
@@ -50,6 +50,10 @@ class ProductsPage extends StatelessWidget {
                         product: productController.products[index],
                       );
                     });
+              } else {
+                return Center(
+                  child: Text("No products."),
+                );
               }
             }),
       ),

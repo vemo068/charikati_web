@@ -1,6 +1,7 @@
 import 'package:charikati/controllers/buy_controller.dart';
 import 'package:charikati/models/buy.dart';
 import 'package:charikati/pages/buy_page.dart';
+import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,26 @@ class BuyTile extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
+        onLongPress: () {
+          buyController.selectedBuy = buy;
+          Get.defaultDialog(
+            backgroundColor: kcbackground,
+            title: "Supprimer",
+            textCancel: "Cancel",
+            cancelTextColor: Colors.grey,
+            textConfirm: "Confirm",
+            confirmTextColor: kcwhite,
+            buttonColor: Colors.red,
+            middleText: "Are you dure you want delete the buy of ${buy.date}",
+            onConfirm: () {
+              buyController.deleteBuy();
+            },
+            onCancel: () {
+             
+              buyController.selectedBuy = null;
+            },
+          );
+        },
         onTap: (() {
           buyController.selectedBuy = buy;
           Get.to(() => BuyPage());

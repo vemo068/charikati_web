@@ -21,13 +21,17 @@ class OrderBuyController extends GetxController {
     super.onInit();
   }
 
+  bool ordersLoading = false;
   getOrderBuys() async {
+    ordersLoading = true;
+    update();
     var ob = await httpService.getBuyOrders(buyController.selectedBuy!.id!);
     if (ob != null) {
       orderBuys = ob;
     } else {
       orderBuys = [];
     }
+    ordersLoading = false;
     update();
   }
 
@@ -39,9 +43,15 @@ class OrderBuyController extends GetxController {
       total: productController.selectedProduct!.buyPrice *
           int.parse(quantityController.text),
     );
-
+    Get.defaultDialog(
+      title: "Adding order..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.insertOrderBuy(orderBuy);
     getOrderBuys();
+    Get.back();
     Get.back();
     count = 1;
     quantityController.text = "$count";
@@ -53,11 +63,19 @@ class OrderBuyController extends GetxController {
   }
 
   deleteOrderBuy() async {
+    Get.defaultDialog(
+      title: "Deleting Order..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.deleteOrderBuy(selectedOrderBuy!.id!);
     buyController.updateBuy();
     productController.selectedProduct = null;
     getOrderBuys();
     await productController.getAllProducts();
+    Get.back();
+    Get.back();
     update();
   }
 

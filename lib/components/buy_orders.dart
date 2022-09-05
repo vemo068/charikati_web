@@ -2,6 +2,7 @@ import 'package:charikati/controllers/buy_controller.dart';
 import 'package:charikati/controllers/order_buy_controller.dart';
 import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/models/order_buy.dart';
+import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,9 +15,22 @@ class BuyOrders extends StatelessWidget {
     return GetBuilder(
         init: orderController,
         builder: (_) {
-          if (orderController.orderBuys.isEmpty) {
+          if (orderController.ordersLoading) {
             return Center(
-              child: Text("No Orders"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Loading..."),
+                ],
+              ),
+            );
+          } else if (orderController.orderBuys.isEmpty) {
+            return Center(
+              child: Text("No Orders."),
             );
           } else {
             return ListView.builder(
@@ -43,38 +57,37 @@ class OrderBuyTile extends StatelessWidget {
   final BuyController buyController = Get.find<BuyController>();
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onLongPress: () {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Delete Order"),
-                content: Text("Are you sure you want to delete this order?"),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text("Yes"),
-                    onPressed: () {
-                      orderController.selectedOrderBuy = order;
-                      orderController.deleteOrderBuy();
+    return Column(
+      children: [
+        ListTile(
+          onLongPress: () {
+            orderController.selectedOrderBuy = order;
+            Get.defaultDialog(
+              backgroundColor: kcbackground,
+              title: "Supprimer",
+              textCancel: "Cancel",
+              cancelTextColor: Colors.grey,
+              textConfirm: "Confirm",
+              confirmTextColor: kcwhite,
+              buttonColor: Colors.red,
+              middleText: "Are you sure you want to delete this order?",
+              onConfirm: () {
+                orderController.selectedOrderBuy = order;
+                orderController.deleteOrderBuy();
 
-                      Get.back();
-                      buyController.updateBuy();
-                    },
-                  ),
-                  TextButton(
-                    child: Text("No"),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  )
-                ],
-              );
-            });
-      },
-      title: Text(order.product.name),
-      subtitle: Text("${order.quantity} pcs"),
-      trailing: Text("${order.total} DA"),
+                buyController.updateBuy();
+              },
+              onCancel: () {
+                orderController.selectedOrderBuy = null;
+              },
+            );
+          },
+          title: Text(order.product.name),
+          subtitle: Text("${order.quantity} pcs"),
+          trailing: Text("${order.total} DA"),
+        ),
+        Divider(),
+      ],
     );
   }
 }
