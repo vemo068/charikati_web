@@ -1,15 +1,14 @@
-import 'dart:io';
-
 import 'package:charikati/controllers/forni_controller.dart';
 import 'package:charikati/models/buy.dart';
 import 'package:charikati/services/http_service.dart';
-import 'package:charikati/services/pdf_services/pdf_api.dart';
-import 'package:charikati/services/pdf_services/pdf_invoice_api.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BuyController extends GetxController {
   final HttpService httpService = HttpService();
   final ForniController forniController = Get.find<ForniController>();
+  bool loadingBuys = false;
+  bool saveLoading = false;
 
   List<Buy> buys = [];
   Buy? selectedBuy;
@@ -26,18 +25,25 @@ class BuyController extends GetxController {
       forni: forniController.selectedForni!,
       date: DateTime.now().toString().substring(0, 16),
     );
+    Get.defaultDialog(
+        title: "Adding Buy..",
+        middleText: "",
+        content: CircularProgressIndicator());
     await httpService.insertBuy(buy);
+    Get.back();
     await getForniBuys();
     update();
   }
 
   getForniBuys() async {
+    loadingBuys = true;
     var b = await httpService.getForniBuys(forniController.selectedForni!.id!);
     if (b != null) {
-      buys = b;
+      buys = List.from(b.reversed);
     } else {
       buys = [];
     }
+    loadingBuys = false;
 
     update();
   }
@@ -53,8 +59,6 @@ class BuyController extends GetxController {
     await getForniBuys();
     update();
   }
-
-  
 
   @override
   void onClose() {

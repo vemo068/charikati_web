@@ -33,9 +33,9 @@ class AddProductPage extends StatelessWidget {
               ),
               TextField(
                 keyboardType: TextInputType.number,
-                controller: productController.sellPriceController,
+                controller: productController.buyPriceController,
                 decoration: InputDecoration(
-                  labelText: "Sell Price (DA)",
+                  labelText: "Prix d'achat (DA)",
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -44,9 +44,9 @@ class AddProductPage extends StatelessWidget {
               ),
               TextField(
                 keyboardType: TextInputType.number,
-                controller: productController.buyPriceController,
+                controller: productController.sellPriceController,
                 decoration: InputDecoration(
-                  labelText: "Buy Price (DA)",
+                  labelText: "Prix de vente (DA)",
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -56,7 +56,7 @@ class AddProductPage extends StatelessWidget {
               WideButton(
                 text: isEdit ? "Sauvgarder" : "Ajouter",
                 onPressed: () {
-                  productController.saveProduct();
+                  productController.saveProduct(isEdit);
                 },
                 color: kcsecondary,
               ),
@@ -67,7 +67,6 @@ class AddProductPage extends StatelessWidget {
                   ? WideButton(
                       text: "Supprimer",
                       onPressed: () {
-                        
                         productController.deleteProduct();
                       },
                       color: Colors.red,

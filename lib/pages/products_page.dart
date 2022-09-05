@@ -20,20 +20,37 @@ class ProductsPage extends StatelessWidget {
       floatingActionButton: FabAjoute(
           text: "Ajouter un produit",
           ontap: () {
-            Get.to(() => AddProductPage(isEdit: false,));
+            Get.to(() => AddProductPage(
+                  isEdit: false,
+                ));
           }),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: GetBuilder(
             init: productController,
             builder: (_) {
-              return ListView.builder(
-                  itemCount: productController.products.length,
-                  itemBuilder: (context, index) {
-                    return ProductTile(
-                      product: productController.products[index],
-                    );
-                  });
+              if (productController.loadingProducts) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("Loading..."),
+                    ],
+                  ),
+                );
+              } else {
+                return ListView.builder(
+                    itemCount: productController.products.length,
+                    itemBuilder: (context, index) {
+                      return ProductTile(
+                        product: productController.products[index],
+                      );
+                    });
+              }
             }),
       ),
     );

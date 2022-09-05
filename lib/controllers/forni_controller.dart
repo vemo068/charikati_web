@@ -1,4 +1,5 @@
 import 'package:charikati/models/forni.dart';
+import 'package:charikati/pages/home.dart';
 import 'package:charikati/services/http_service.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ class ForniController extends GetxController {
   final HttpService httpService = HttpService();
   List<Forni> fornis = [];
   Forni? selectedForni;
+  bool loadingFornis = false;
 
   @override
   void onInit() {
@@ -26,22 +28,33 @@ class ForniController extends GetxController {
   }
 
   getAllFornis() async {
+    loadingFornis = true;
+    update();
     fornis = await httpService.getFornis();
+    loadingFornis = false;
     update();
   }
 
-  saveForni() async {
+  saveForni(bool isEdit) async {
     if (nameController.text.isNotEmpty && phoneController.text.isNotEmpty) {
       Forni forni = Forni(
           id: selectedForni != null ? selectedForni!.id : null,
           name: nameController.text,
           phone: phoneController.text);
+      Get.defaultDialog(
+        title: isEdit ? "Saving changes" : "Adding Fornisseur..",
+        middleText: "",
+        content: CircularProgressIndicator(),
+        barrierDismissible: false,
+      );
       await httpService.insertForni(forni);
+      Get.back();
       if (selectedForni != null) {
         updateForni();
       }
-      await getAllFornis();
       Get.back();
+      await getAllFornis();
+
       nameController.text = "";
       phoneController.text = "";
 
@@ -66,9 +79,14 @@ class ForniController extends GetxController {
   // }
 
   deleteForni() async {
-    Get.back();
-    Get.back();
+    Get.defaultDialog(
+      title: "Deleting fornisseur..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.deleteForni(selectedForni!.id!);
+    Get.offAll(() => HomePage());
     await getAllFornis();
     nameController.text = "";
     phoneController.text = "";

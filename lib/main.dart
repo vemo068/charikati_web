@@ -1,10 +1,9 @@
 import 'package:charikati/controllers/home_controller.dart';
-import 'package:charikati/controllers/login_controller.dart';
-import 'package:charikati/controllers/welcome_controller.dart';
+
 import 'package:charikati/pages/home.dart';
 
 import 'package:charikati/pages/login_page.dart';
-import 'package:charikati/pages/welcome_page.dart';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,12 +15,17 @@ void main() async {
 
 class CharikatyApp extends StatelessWidget {
   CharikatyApp({Key? key}) : super(key: key);
-
+ final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
+    var dataLogin = GetStorage();
+    Widget initPage =
+        dataLogin.read("username") != null && dataLogin.read("password") != null
+            ? HomePage()
+            : LoginPage();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: initPage,
     );
   }
 }
@@ -47,8 +51,6 @@ var listOfYears = [
   '2032',
   '2033',
   '2034',
-
-
 ];
 var listOfMonths = [
   '01',
@@ -63,5 +65,4 @@ var listOfMonths = [
   '10',
   '11',
   '12',
-  
 ];

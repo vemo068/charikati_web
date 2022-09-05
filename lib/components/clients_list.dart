@@ -11,19 +11,38 @@ class ClientsList extends StatelessWidget {
     return GetBuilder(
         init: clientController,
         builder: (_) {
-          return ListView.builder(
-            itemCount: clientController.clients.length,
-            itemBuilder: (context, index) {
-              return Column(
+          if (clientController.loadingClients) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClientCard(client: clientController.clients[index]),
+                  CircularProgressIndicator(),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
+                  Text("Loading..."),
                 ],
-              );
-            },
-          );
+              ),
+            );
+          } else if (clientController.clients.isNotEmpty) {
+            return ListView.builder(
+              itemCount: clientController.clients.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    ClientCard(client: clientController.clients[index]),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: Text("No clients."),
+            );
+          }
         });
   }
 }

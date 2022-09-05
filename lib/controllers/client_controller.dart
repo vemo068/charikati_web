@@ -1,4 +1,5 @@
 import 'package:charikati/models/client.dart';
+import 'package:charikati/pages/home.dart';
 import 'package:charikati/services/http_service.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +27,7 @@ class ClientController extends GetxController {
     super.onInit();
   }
 
-  void saveClient() async {
+  void saveClient(bool isEdit) async {
     if (nameController.text.isEmpty ||
         nifController.text.isEmpty ||
         rcnController.text.isEmpty) {
@@ -61,7 +62,15 @@ class ClientController extends GetxController {
         nis: nisController.text,
         description: descriptionController.text,
       );
+      Get.defaultDialog(
+        title: isEdit ? "Saving changes" : "Adding Client..",
+        middleText: "",
+        content: CircularProgressIndicator(),
+        barrierDismissible: false,
+      );
       await httpService.insertClient(client);
+
+      Get.back();
       if (selectedClient != null) {
         updateClient();
       }
@@ -80,15 +89,24 @@ class ClientController extends GetxController {
     update();
   }
 
+  bool loadingClients = false;
   void getAllClients() async {
+    loadingClients = true;
+    update();
     clients = await httpService.getClients();
+    loadingClients = false;
     update();
   }
 
   deleteClient() async {
+    Get.defaultDialog(
+      title: "Deleting Client..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.deleteClient(selectedClient!.id!);
-    Get.back();
-    Get.back();
+    Get.offAll(() => HomePage());
     nameController.clear();
     phoneController.clear();
     nifController.clear();

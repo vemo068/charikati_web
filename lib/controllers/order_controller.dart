@@ -16,6 +16,8 @@ class OrderSellController extends GetxController {
   final ClientController clientController = Get.find<ClientController>();
   List<OrderSell> orders = [];
   OrderSell? selectedOrder;
+  bool loadingOrderSell = false;
+  bool saveLoading = false;
 
   int count = 1;
   TextEditingController quantityController = TextEditingController(text: "1");
@@ -29,12 +31,15 @@ class OrderSellController extends GetxController {
   void inis() {}
 
   void getSellOrders() async {
+    loadingOrderSell = true;
+    update();
     var or = await httpService.getSellOrders(sellController.selectedSell!.id!);
     if (or != null) {
       orders = or;
     } else {
       orders = [];
     }
+    loadingOrderSell = false;
     update();
   }
 
@@ -46,8 +51,9 @@ class OrderSellController extends GetxController {
         quantity: int.parse(quantityController.text),
         product: productController.selectedProduct!,
         sell: sellController.selectedSell!);
-
+    saveLoading = true;
     await httpService.insertOrderSell(order);
+    saveLoading = false;
     getSellOrders();
     Get.back();
     count = 1;
@@ -76,7 +82,6 @@ class OrderSellController extends GetxController {
   }
 
   deleteOrder() async {
-    
     await httpService.deleteOrderSell(selectedOrder!.id!);
     sellController.updateSell();
     productController.selectedProduct = null;

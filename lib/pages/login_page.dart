@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
    final LoginController loginController = Get.put(LoginController());
-  final HomeController homeController = Get.put(HomeController());
+ 
   final WelcomeController welcomeController = Get.put(WelcomeController());
   @override
   Widget build(BuildContext context) {

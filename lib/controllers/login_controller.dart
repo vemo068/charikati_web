@@ -31,8 +31,15 @@ class LoginController extends GetxController {
         duration: Duration(seconds: 2),
       );
     } else {
+      Get.defaultDialog(
+        title: "Please Wait..",
+        middleText: "",
+        content: CircularProgressIndicator(),
+        barrierDismissible: false,
+      );
       currentUser = await httpService.loginUser(
           usernameController.text, passwordController.text);
+      Get.back();
 
       if (currentUser == null) {
         Get.snackbar(

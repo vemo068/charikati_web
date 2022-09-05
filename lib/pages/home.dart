@@ -1,18 +1,12 @@
 import 'package:charikati/components/appbar.dart';
-import 'package:charikati/components/clients_list.dart';
+
 import 'package:charikati/components/drawer.dart';
-import 'package:charikati/components/fab_ajoute.dart';
-import 'package:charikati/components/normal_padding.dart';
-import 'package:charikati/controllers/client_controller.dart';
-import 'package:charikati/controllers/forni_controller.dart';
+
 import 'package:charikati/controllers/home_controller.dart';
-import 'package:charikati/controllers/product_controller.dart';
-import 'package:charikati/pages/add_client_page.dart';
+
 import 'package:charikati/pages/clients_tab.dart';
 import 'package:charikati/pages/fornis_tab.dart';
-import 'package:charikati/pages/stats_page.dart';
-import 'package:charikati/styles/colors.dart';
-import 'package:charikati/styles/styles.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

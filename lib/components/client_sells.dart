@@ -5,22 +5,34 @@ import 'package:get/get.dart';
 
 class ClientSells extends StatelessWidget {
   ClientSells({Key? key}) : super(key: key);
-  final SellController buysController = Get.find<SellController>();
+  final SellController sellssController = Get.find<SellController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-        init: buysController,
+        init: sellssController,
         builder: (_) {
-          if (buysController.sells.isEmpty) {
+          if (sellssController.loadingSells) {
+            return Center(
+              child: Column(
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Loading...")
+                ],
+              ),
+            );
+          } else if (sellssController.sells.isEmpty) {
             return Center(
               child: Text("No Buys"),
             );
           } else {
             return ListView.builder(
-              itemCount: buysController.sells.length,
+              itemCount: sellssController.sells.length,
               itemBuilder: (context, index) {
                 return SellTile(
-                  sell: buysController.sells[index],
+                  sell: sellssController.sells[index],
                 );
               },
             );

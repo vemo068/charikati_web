@@ -12,7 +12,7 @@ class ProductController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController sellPriceController = TextEditingController();
   TextEditingController buyPriceController = TextEditingController();
-
+  bool loadingProducts = false;
   @override
   void onInit() {
     getAllProducts();
@@ -25,7 +25,7 @@ class ProductController extends GetxController {
     buyPriceController.text = selectedProduct!.buyPrice.toString();
   }
 
-  Future<void> saveProduct() async {
+  Future<void> saveProduct(bool isEdit) async {
     if (nameController.text.isEmpty ||
         sellPriceController.text.isEmpty ||
         buyPriceController.text.isEmpty) {
@@ -52,9 +52,17 @@ class ProductController extends GetxController {
         sellPrice: int.parse(sellPriceController.text),
         buyPrice: int.parse(buyPriceController.text),
       );
+      Get.defaultDialog(
+        title: isEdit ? "Saving changes" : "Adding Product..",
+        middleText: "",
+        content: CircularProgressIndicator(),
+        barrierDismissible: false,
+      );
       await httpService.insertProduct(product);
-      await getAllProducts();
       Get.back();
+      Get.back();
+      await getAllProducts();
+
       nameController.clear();
       sellPriceController.clear();
       buyPriceController.clear();
@@ -64,12 +72,22 @@ class ProductController extends GetxController {
   }
 
   Future<void> getAllProducts() async {
+    loadingProducts = true;
+    update();
     products = await httpService.getProducts();
+    loadingProducts = false;
     update();
   }
 
   Future<void> deleteProduct() async {
+    Get.defaultDialog(
+      title: "Deleting Product..",
+      middleText: "",
+      content: CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     await httpService.deleteProduct(selectedProduct!.id!);
+    Get.back();
     Get.back();
     await getAllProducts();
     nameController.clear();

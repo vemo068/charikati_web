@@ -118,7 +118,7 @@ class TotalsContainer extends StatelessWidget {
                             Text(
                               formatCurrency.format(statsController.totalBuys) +
                                   " DA",
-                              style: mediHeadlineStyle.copyWith(color: kcwhite),
+                              style: mediButtonStyle.copyWith(color: kcwhite),
                             ),
                             Text(
                               "Total des achats",
@@ -136,7 +136,7 @@ class TotalsContainer extends StatelessWidget {
                               formatCurrency
                                       .format(statsController.totalSells) +
                                   " DA",
-                              style: mediHeadlineStyle.copyWith(color: kcwhite),
+                              style: mediButtonStyle.copyWith(color: kcwhite),
                             ),
                             Text(
                               "Total des ventes",

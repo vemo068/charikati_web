@@ -9,11 +9,10 @@ import 'package:get/get.dart';
 
 class AddForniPage extends StatelessWidget {
   final bool isEdit;
-  AddForniPage({Key? key,required this.isEdit}) : super(key: key);
+  AddForniPage({Key? key, required this.isEdit}) : super(key: key);
   final ForniController _forniController = Get.find<ForniController>();
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: charikatiAppBar("Ajouter un fournisseur"),
       body: NormalPadding(
@@ -47,11 +46,21 @@ class AddForniPage extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-         WideButton(text:isEdit?"Sauvgarder": "Ajouter", onPressed: _forniController.saveForni, color: kcsecondary),
-         SizedBox(
-          height: 20,
-         ),
-        isEdit? WideButton(text:"Supprimer", onPressed: _forniController.deleteForni, color: Colors.red):SizedBox(),
+          WideButton(
+              text: isEdit ? "Sauvgarder" : "Ajouter",
+              onPressed: () {
+                _forniController.saveForni(isEdit);
+              },
+              color: kcsecondary),
+          SizedBox(
+            height: 20,
+          ),
+          isEdit
+              ? WideButton(
+                  text: "Supprimer",
+                  onPressed: _forniController.deleteForni,
+                  color: Colors.red)
+              : SizedBox(),
         ],
       )),
     );

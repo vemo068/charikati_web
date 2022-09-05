@@ -11,19 +11,38 @@ class ForniList extends StatelessWidget {
     return GetBuilder(
         init: forniController,
         builder: (_) {
-          return ListView.builder(
-            itemCount: forniController.fornis.length,
-            itemBuilder: (context, index) {
-              return Column(
+          if (forniController.loadingFornis) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ForniCard(forni: forniController.fornis[index]),
+                  CircularProgressIndicator(),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
+                  Text("Loading..."),
                 ],
-              );
-            },
-          );
+              ),
+            );
+          } else if (forniController.fornis.isNotEmpty) {
+            return ListView.builder(
+              itemCount: forniController.fornis.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    ForniCard(forni: forniController.fornis[index]),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: Text("no fornisseurs"),
+            );
+          }
         });
   }
 }

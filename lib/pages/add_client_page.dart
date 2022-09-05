@@ -51,8 +51,7 @@ class AddClientPage extends StatelessWidget {
               height: 10,
             ),
             TxtField(
-                hint: "Phone",
-                controller: clientController.phoneController),
+                hint: "Phone", controller: clientController.phoneController),
             SizedBox(height: 20),
             TxtField(
                 hint: "Description",
@@ -62,17 +61,17 @@ class AddClientPage extends StatelessWidget {
                 hint: "Address",
                 controller: clientController.addressController),
             SizedBox(height: 20),
-            TxtField(
-                hint: "N A I",
-                controller: clientController.naiController),
+            TxtField(hint: "N A I", controller: clientController.naiController),
             SizedBox(height: 20),
-            TxtField(
-                hint: "N I S",
-                controller: clientController.nisController),
+            TxtField(hint: "N I S", controller: clientController.nisController),
             SizedBox(height: 20),
             WideButton(
                 text: isEdit ? "Sauvgarder" : "Ajouter",
-                onPressed: clientController.saveClient,
+                onPressed: () {
+                  clientController.saveClient(isEdit);
+                },
+
+                
                 color: kcsecondary),
             SizedBox(
               height: 20,
