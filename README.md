@@ -47,3 +47,9 @@ Capture and manage sell operations, enabling users to create and customize invoi
 
 ## Invoice Printing:
 Print invoices directly from the app, providing users with a convenient way to share transaction details with clients. Enhance professionalism and streamline communication with printable invoices.
+
+<div style="display: flex; align-items: center;">
+  <img src="rdimages/facture.png"/>
+   
+  
+</div>
