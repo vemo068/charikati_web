@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/models/buy.dart';
 import 'package:charikati/models/client.dart';
 import 'package:charikati/models/forni.dart';
@@ -16,7 +17,18 @@ class HttpService {
     Response response = await get(Uri.parse(productsUrl));
     var jsonResponse = json.decode(response.body);
     List<Product> products = [];
-    for (var p in jsonResponse) {
+    for (var p in jsonResponse["content"]) {
+      products.add(Product.fromJson(p));
+    }
+    return products;
+  }
+
+  Future<List<Product>> getMoreProducts(int page) async {
+    Response response = await get(Uri.parse(productsUrl+"?page=$page"));
+    var jsonResponse = json.decode(response.body);
+    List<Product> products = [];
+    
+    for (var p in jsonResponse["content"]) {
       products.add(Product.fromJson(p));
     }
     return products;

@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:charikati/models/product.dart';
 import 'package:charikati/services/http_service.dart';
+import 'package:charikati/services/links.dart';
 import 'package:charikati/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 class ProductController extends GetxController {
   final HttpService httpService = HttpService();
@@ -13,9 +17,15 @@ class ProductController extends GetxController {
   TextEditingController sellPriceController = TextEditingController();
   TextEditingController buyPriceController = TextEditingController();
   bool loadingProducts = false;
+  final sController = ScrollController();
   @override
   void onInit() {
     getAllProducts();
+    sController.addListener(() {
+      if (sController.position.maxScrollExtent == sController.offset) {
+        loadMore();
+      }
+    });
     super.onInit();
   }
 
@@ -62,7 +72,7 @@ class ProductController extends GetxController {
       Get.back();
       Get.back();
       await getAllProducts();
-
+      selectedProduct = null;
       nameController.clear();
       sellPriceController.clear();
       buyPriceController.clear();
@@ -72,6 +82,8 @@ class ProductController extends GetxController {
   }
 
   Future<void> getAllProducts() async {
+    isLastPage = false;
+    page = 0;
     loadingProducts = true;
     update();
     products = await httpService.getProducts();
@@ -93,6 +105,31 @@ class ProductController extends GetxController {
     nameController.clear();
     sellPriceController.clear();
     buyPriceController.clear();
+    update();
+  }
+
+  // PAGINATION //
+
+  int page = 0;
+  bool moreLoding = false;
+  bool isLastPage = false;
+  loadMore() async {
+    if (isLastPage) {
+    } else {
+      moreLoding = true;
+      var response = await get(Uri.parse(productsUrl + "?page=$page"));
+      var jsonResponse = json.decode(response.body);
+      List<Product> moreProducts = [];
+
+      for (var p in jsonResponse["content"]) {
+        moreProducts.add(Product.fromJson(p));
+      }
+
+      isLastPage = jsonResponse["last"];
+      page++;
+      products = products + moreProducts;
+      moreLoding = false;
+    }
     update();
   }
 }

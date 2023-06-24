@@ -5,6 +5,7 @@ import 'package:charikati/components/product_tile.dart';
 import 'package:charikati/controllers/product_controller.dart';
 import 'package:charikati/pages/add_product_page.dart';
 import 'package:charikati/styles/colors.dart';
+import 'package:charikati/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,11 +45,31 @@ class ProductsPage extends StatelessWidget {
                 );
               } else if (productController.products.isNotEmpty) {
                 return ListView.builder(
-                    itemCount: productController.products.length,
+                    controller: productController.sController,
+                    itemCount: productController.products.length + 1,
                     itemBuilder: (context, index) {
-                      return ProductTile(
-                        product: productController.products[index],
-                      );
+                      if (index < productController.products.length) {
+                        return ProductTile(
+                          product: productController.products[index],
+                        );
+                      } else if (!productController.isLastPage) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 32),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      } else {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 32),
+                          child: Center(
+                            child: Text(
+                              "La fin de list",
+                              style: mediSubheadingStyle,
+                            ),
+                          ),
+                        );
+                      }
                     });
               } else {
                 return Center(
